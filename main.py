@@ -29,18 +29,41 @@ class TableModel(QtCore.QAbstractTableModel):
     
     def columnCount(self, parent = None):
         return 2
+    
+    def headerData(self, section, orientation, role):
+        if section == 0 and orientation == Qt.Horizontal and role == Qt.DisplayRole:
+            return "Variable"
+        elif section == 1 and orientation == Qt.Horizontal and role == Qt.DisplayRole:
+            return "Values"
+
+
+class UiMainWindow(Ui_MainWindow):
+
+    def __init__(self, parent, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setupUi(parent)
+        self._parent = parent
+
+        # customize table header
+        table_h_header = self.table.horizontalHeader()
+        table_h_header.setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+        table_h_header.setSectionsClickable(False)
+
+        # close button
+        self.btn_close.clicked.connect(lambda : self._parent.close())
 
 
 class MainWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.model = TableModel(list(os.environ.items()))
-        self.ui.table.setModel(self.model)
-        self.ui.btn_close.clicked.connect(lambda : self.close())
+        self.main_ui = UiMainWindow(self)
 
+        # load model
+        os_vars = list(sorted(os.environ.items(), key=lambda x: x[0]))
+        self.model = TableModel(os_vars)
+        self.main_ui.table.setModel(self.model)
 
+        
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = MainWidget()
