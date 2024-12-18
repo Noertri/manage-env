@@ -174,7 +174,6 @@ class MainWidget(QWidget):
         }
 
         # load model
-        # os_vars = list(sorted(os.environ.items(), key=lambda x: x[0]))
         self.model = TableModel(self.app_data.get("env_os", {}))
         self.main_ui.table.setModel(self.model)
 
@@ -190,9 +189,13 @@ class MainWidget(QWidget):
 
     def _filter_vars(self, x):
         exclude_patterns = re.compile(r"|".join(self.app_configs["excludes"]))
-        if exclude_patterns.match(x[0]):
+
+        if x in self.app_configs["commons"]:
+            return True
+        elif exclude_patterns.match(x[0]):
             return False
-        return x
+        else:
+            return x
 
     def load_env_file(self):
         pattern = re.compile(r'([_A-Za-z0-9]+?)="(.*)"|([_A-Za-z0-9]+?)=(.*)')
