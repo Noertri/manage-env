@@ -29,7 +29,7 @@ class MainWidget(QWidget):
         self.ui.setupUi(self)
         self.setFixedSize(600, 400)
 
-        self.btn_new_dialog = None
+        self.btn_new_dialog: BtnNewDialog = None
 
         # customize table header
         table_hor_header = self.ui.table.horizontalHeader()
@@ -39,7 +39,7 @@ class MainWidget(QWidget):
         self._load_env_vars()
 
         # close button
-        self.ui.btn_close.clicked.connect(lambda : self.close())
+        self.ui.btn_close.clicked.connect(self.btn_close_slot)
 
         # new button
         self.ui.btn_new.clicked.connect(self.btn_new_slot)
@@ -214,7 +214,11 @@ class MainWidget(QWidget):
             f.close()
 
     def closeEvent(self, event):
-        print("Program is quiting...")
+        if self.btn_new_dialog:
+            event.ignore()
+        else:
+            event.accept()
+            print("Quit!!!")
 
     def btn_new_slot(self):
         if not self.btn_new_dialog:
@@ -227,6 +231,9 @@ class MainWidget(QWidget):
             self._save_to_file()
 
         print("Done!")
+
+    def btn_close_slot(self):
+        self.close()
 
    
 if __name__ == "__main__":
