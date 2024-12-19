@@ -50,6 +50,9 @@ class BtnNewWinWidget(QWidget):
         self.btn_new_window_ui.setupUi(self)
         self._parent = parent
 
+    def closeEvent(self, event):
+        self._parent.btn_new_win_widget = None
+
 
 class UiMainWindow(Ui_MainWindow):
 
@@ -57,7 +60,7 @@ class UiMainWindow(Ui_MainWindow):
         super().__init__(*args, **kwargs)
         self.setupUi(parent)
         self._parent = parent
-        self.btn_new_win_widget = BtnNewWinWidget(self)
+        self.btn_new_win_widget = None
 
         # customize table header
         table_h_header = self.table.horizontalHeader()
@@ -69,9 +72,9 @@ class UiMainWindow(Ui_MainWindow):
         self.btn_new.clicked.connect(self.btn_new_slot)
 
     def btn_new_slot(self, *args, **kwargs):
-        if not self.btn_new_win_widget.isVisible():
+        if not self.btn_new_win_widget:
+            self.btn_new_win_widget = BtnNewWinWidget(self)
             self.btn_new_win_widget.show()
-            print("Visible!!!")
 
         
 class MainWidget(QWidget):
