@@ -15,7 +15,7 @@ from PySide6 import QtCore
 #     pyside2-uic form.ui -o ui_form.py
 
 from main_ui import Ui_MainWindow
-from btn_new_window_ui import Ui_BtnNewWindow
+from dialogs import BtnNewDialog
 
 
 class TableModel(QtCore.QAbstractTableModel):
@@ -42,25 +42,13 @@ class TableModel(QtCore.QAbstractTableModel):
             return "Values"
 
 
-class BtnNewWinWidget(QWidget):
-
-    def __init__(self, parent, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.btn_new_window_ui = Ui_BtnNewWindow()
-        self.btn_new_window_ui.setupUi(self)
-        self._parent = parent
-
-    def closeEvent(self, event):
-        self._parent.btn_new_win_widget = None
-
-
 class UiMainWindow(Ui_MainWindow):
 
     def __init__(self, parent, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setupUi(parent)
         self._parent = parent
-        self.btn_new_win_widget = None
+        self.btn_new_dialog = None
 
         # customize table header
         table_h_header = self.table.horizontalHeader()
@@ -72,15 +60,16 @@ class UiMainWindow(Ui_MainWindow):
         self.btn_new.clicked.connect(self.btn_new_slot)
 
     def btn_new_slot(self, *args, **kwargs):
-        if not self.btn_new_win_widget:
-            self.btn_new_win_widget = BtnNewWinWidget(self)
-            self.btn_new_win_widget.show()
+        if not self.btn_new_dialog:
+            self.btn_new_dialog = BtnNewDialog(self)
+            self.btn_new_dialog.show()
 
         
 class MainWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.main_ui = UiMainWindow(self)
+        self.setFixedSize(600, 400)
 
         # initialization
         self.init_app()
@@ -240,6 +229,9 @@ class MainWidget(QWidget):
                     f.write(f'{k}="{v}"\n')
 
             f.close()
+
+    def closeEvent(self, event):
+        print("Quiting...")
 
    
 if __name__ == "__main__":

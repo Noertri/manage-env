@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'btn_new_window.ui'
+## Form generated from reading UI file 'btn_new_dialog.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -19,19 +19,18 @@ from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
 
-class Ui_BtnNewWindow(object):
-    def setupUi(self, BtnNewWindow):
-        if not BtnNewWindow.objectName():
-            BtnNewWindow.setObjectName(u"BtnNewWindow")
-        BtnNewWindow.setWindowModality(Qt.NonModal)
-        BtnNewWindow.resize(600, 200)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+class Ui_BtnNewDialog(object):
+    def setupUi(self, BtnNewDialog):
+        if not BtnNewDialog.objectName():
+            BtnNewDialog.setObjectName(u"BtnNewDialog")
+        BtnNewDialog.setWindowModality(Qt.NonModal)
+        BtnNewDialog.resize(500, 200)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(BtnNewWindow.sizePolicy().hasHeightForWidth())
-        BtnNewWindow.setSizePolicy(sizePolicy)
-        BtnNewWindow.setMinimumSize(QSize(600, 200))
-        BtnNewWindow.setMaximumSize(QSize(600, 200))
+        sizePolicy.setHeightForWidth(BtnNewDialog.sizePolicy().hasHeightForWidth())
+        BtnNewDialog.setSizePolicy(sizePolicy)
+        BtnNewDialog.setMinimumSize(QSize(500, 200))
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -119,30 +118,31 @@ class Ui_BtnNewWindow(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush14)
 #endif
-        BtnNewWindow.setPalette(palette)
-        self.verticalLayout = QVBoxLayout(BtnNewWindow)
+        BtnNewDialog.setPalette(palette)
+        self.verticalLayout = QVBoxLayout(BtnNewDialog)
+        self.verticalLayout.setSpacing(40)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(20, 20, 20, 20)
         self.gridLayout = QGridLayout()
         self.gridLayout.setSpacing(20)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label2 = QLabel(BtnNewWindow)
+        self.label2 = QLabel(BtnNewDialog)
         self.label2.setObjectName(u"label2")
 
         self.gridLayout.addWidget(self.label2, 1, 0, 1, 1)
 
-        self.label1 = QLabel(BtnNewWindow)
+        self.label1 = QLabel(BtnNewDialog)
         self.label1.setObjectName(u"label1")
 
         self.gridLayout.addWidget(self.label1, 0, 0, 1, 1)
 
-        self.new_var_entry = QLineEdit(BtnNewWindow)
+        self.new_var_entry = QLineEdit(BtnNewDialog)
         self.new_var_entry.setObjectName(u"new_var_entry")
         self.new_var_entry.setContextMenuPolicy(Qt.DefaultContextMenu)
 
         self.gridLayout.addWidget(self.new_var_entry, 0, 1, 1, 1)
 
-        self.new_values_entry = QLineEdit(BtnNewWindow)
+        self.new_values_entry = QLineEdit(BtnNewDialog)
         self.new_values_entry.setObjectName(u"new_values_entry")
         self.new_values_entry.setToolTipDuration(3)
 
@@ -151,19 +151,15 @@ class Ui_BtnNewWindow(object):
 
         self.verticalLayout.addLayout(self.gridLayout)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
-
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(10)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.btn_browse_dir = QPushButton(BtnNewWindow)
+        self.btn_browse_dir = QPushButton(BtnNewDialog)
         self.btn_browse_dir.setObjectName(u"btn_browse_dir")
 
         self.horizontalLayout_3.addWidget(self.btn_browse_dir)
 
-        self.btn_browse_file = QPushButton(BtnNewWindow)
+        self.btn_browse_file = QPushButton(BtnNewDialog)
         self.btn_browse_file.setObjectName(u"btn_browse_file")
 
         self.horizontalLayout_3.addWidget(self.btn_browse_file)
@@ -172,12 +168,12 @@ class Ui_BtnNewWindow(object):
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
 
-        self.btn_add = QPushButton(BtnNewWindow)
+        self.btn_add = QPushButton(BtnNewDialog)
         self.btn_add.setObjectName(u"btn_add")
 
         self.horizontalLayout_3.addWidget(self.btn_add)
 
-        self.btn_cancel = QPushButton(BtnNewWindow)
+        self.btn_cancel = QPushButton(BtnNewDialog)
         self.btn_cancel.setObjectName(u"btn_cancel")
 
         self.horizontalLayout_3.addWidget(self.btn_cancel)
@@ -186,21 +182,21 @@ class Ui_BtnNewWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
 
-        self.retranslateUi(BtnNewWindow)
+        self.retranslateUi(BtnNewDialog)
 
-        QMetaObject.connectSlotsByName(BtnNewWindow)
+        QMetaObject.connectSlotsByName(BtnNewDialog)
     # setupUi
 
-    def retranslateUi(self, BtnNewWindow):
-        BtnNewWindow.setWindowTitle(QCoreApplication.translate("BtnNewWindow", u"Add New Variable", None))
-        self.label2.setText(QCoreApplication.translate("BtnNewWindow", u"Value(s)", None))
-        self.label1.setText(QCoreApplication.translate("BtnNewWindow", u"Variable", None))
+    def retranslateUi(self, BtnNewDialog):
+        BtnNewDialog.setWindowTitle(QCoreApplication.translate("BtnNewDialog", u"Add New Variable", None))
+        self.label2.setText(QCoreApplication.translate("BtnNewDialog", u"Value(s)", None))
+        self.label1.setText(QCoreApplication.translate("BtnNewDialog", u"Variable", None))
 #if QT_CONFIG(tooltip)
         self.new_values_entry.setToolTip("")
 #endif // QT_CONFIG(tooltip)
-        self.btn_browse_dir.setText(QCoreApplication.translate("BtnNewWindow", u"Browse folder", None))
-        self.btn_browse_file.setText(QCoreApplication.translate("BtnNewWindow", u"Browse file", None))
-        self.btn_add.setText(QCoreApplication.translate("BtnNewWindow", u"Add", None))
-        self.btn_cancel.setText(QCoreApplication.translate("BtnNewWindow", u"Cancel", None))
+        self.btn_browse_dir.setText(QCoreApplication.translate("BtnNewDialog", u"Browse folder", None))
+        self.btn_browse_file.setText(QCoreApplication.translate("BtnNewDialog", u"Browse file", None))
+        self.btn_add.setText(QCoreApplication.translate("BtnNewDialog", u"Add", None))
+        self.btn_cancel.setText(QCoreApplication.translate("BtnNewDialog", u"Cancel", None))
     # retranslateUi
 
