@@ -28,7 +28,10 @@ class TableModel(QtCore.QAbstractTableModel):
         if index.isValid() and role == Qt.DisplayRole:
             _data_list = list(self._data.items())
             return _data_list[index.row()][index.column()]
-        
+    
+    def setData(self, index, value, role = ...):
+        return super().setData(index, value, role)
+
     def rowCount(self, parent = None):
         return len(self._data)
     
