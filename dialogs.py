@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget, QTableWidgetItem
 from btn_new_dialog_ui import Ui_BtnNewDialog
 from PySide6.QtCore import Qt
 
@@ -19,9 +19,23 @@ class BtnNewDialog(QWidget):
         self._parent.btn_new_dialog = None
         print("Window is closed...")
 
+    @property
+    def new_variable(self):
+        return self.ui_btn_new_dialog.new_var_entry.text()
+    
+    @property
+    def new_values(self):
+        return self.ui_btn_new_dialog.new_values_entry.text()
+
     def btn_add_slot(self, *args, **kwargs):
-        new_var = self.ui_btn_new_dialog.new_var_entry.text()
-        new_values = self.ui_btn_new_dialog.new_values_entry.text()
-        table_model = self._parent._parent.model
-        table_model.setData(table_model.createIndex(0, 0), value=new_var, role=Qt.EditRole)
+        print("Add new variable and values...")
+        self._parent.table.insertRow(0)
+        self._parent.table.setItem(0, 0, QTableWidgetItem(self.new_variable))
+        self._parent.table.setItem(0, 1, QTableWidgetItem(self.new_values))
+        try:
+            self._parent.app_data["env_file"][self.new_variable] = self.new_values
+            self._parent.app_data["new_confirm"] = True
+        except (KeyError, Exception) as exception:
+            print(exception)
+        print("Done!")
         self.close()

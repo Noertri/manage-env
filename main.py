@@ -5,9 +5,8 @@ import sys
 import os
 from pathlib import Path
 
-from PySide6.QtWidgets import QApplication, QWidget, QHeaderView
-from PySide6.QtCore import Qt, QModelIndex
-from PySide6 import QtCore
+from PySide6.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetItem
+from PySide6.QtCore import Qt
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -17,68 +16,43 @@ from PySide6 import QtCore
 from main_ui import Ui_MainWindow
 from dialogs import BtnNewDialog
 
-
-class TableModel(QtCore.QAbstractTableModel):
-
-    def __init__(self, data, parent = None):
-        super().__init__(parent)
-        self._data = data or {}
-
-    def data(self, index: QModelIndex, role: int = Qt.DisplayRole):
-        if index.isValid() and role == Qt.DisplayRole:
-            _data_list = list(self._data.items())
-            return _data_list[index.row()][index.column()]
-    
-    def setData(self, index, value, role = ...):
-        return super().setData(index, value, role)
-
-    def rowCount(self, parent = None):
-        return len(self._data)
-    
-    def columnCount(self, parent = None):
-        return 2
-    
-    def headerData(self, section, orientation, role):
-        if section == 0 and orientation == Qt.Horizontal and role == Qt.DisplayRole:
-            return "Variable"
-        elif section == 1 and orientation == Qt.Horizontal and role == Qt.DisplayRole:
-            return "Values"
-
-
-class UiMainWindow(Ui_MainWindow):
-
-    def __init__(self, parent, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setupUi(parent)
-        self._parent = parent
-        self.btn_new_dialog = None
-
-        # customize table header
-        table_h_header = self.table.horizontalHeader()
-        table_h_header.setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
-        table_h_header.setSectionsClickable(False)
-
-        # close button
-        self.btn_close.clicked.connect(lambda : self._parent.close())
-        self.btn_new.clicked.connect(self.btn_new_slot)
-
-    def btn_new_slot(self, *args, **kwargs):
-        if not self.btn_new_dialog:
-            self.btn_new_dialog = BtnNewDialog(self)
-            self.btn_new_dialog.show()
-
-        
+  
 class MainWidget(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.ui = UiMainWindow(self)
-        self.setFixedSize(600, 400)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         # initialization
         self.init_app()
 
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.setFixedSize(600, 400)
+
+        self.btn_new_dialog = None
+
+        # customize table header
+        table_hor_header = self.ui.table.horizontalHeader()
+        table_hor_header.setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+        table_hor_header.setSectionsClickable(False)
+
+        self._load_env_vars()
+
+        # close button
+        self.ui.btn_close.clicked.connect(lambda : self.close())
+
+        # new button
+        self.ui.btn_new.clicked.connect(self.btn_new_slot)
+
+        # ok button
+        self.ui.btn_ok.clicked.connect(self.btn_ok_slot)
+
+    @property
+    def table(self):
+        return self.ui.table
+
     def init_app(self):
-        self.app_workdir = Path("{0}/.local/share/ManageEnv".format(Path.cwd()))
+        self.app_workdir = Path.cwd()
         self.app_configs = {
                     "commons": [
                         "HOME",
@@ -152,8 +126,8 @@ class MainWidget(QWidget):
         self.env_file_path = Path("{0}/.environment".format(Path.home()))
         self.app_data = dict()
 
-        if not self.app_workdir.exists():
-            self.app_workdir.mkdir(parents=True)
+        # if not self.app_workdir.exists():
+        #     self.app_workdir.mkdir(parents=True)
 
         if not self.app_workdir.joinpath("config.json").exists():
             self._create_configs(self.app_workdir.joinpath("config.json"))
@@ -185,9 +159,15 @@ class MainWidget(QWidget):
             "env_os": dict(sorted(env_os.items(), key=lambda x: x[0]))
         }
 
-        # load model
-        self.model = TableModel(self.app_data.get("env_os", {}))
-        self.ui.table.setModel(self.model)
+    def _load_env_vars(self):
+        env_vars = list(self.app_data.get("env_os", {}).items())
+        self.table.setRowCount(len(env_vars))
+
+        for i in range(self.ui.table.rowCount()):
+            var_item = QTableWidgetItem(env_vars[i][0])
+            values_item = QTableWidgetItem(env_vars[i][1])
+            self.ui.table.setItem(i, 0, var_item)
+            self.ui.table.setItem(i, 1, values_item)
 
     def _create_configs(self, config_path: Path):
         with config_path.open("w", encoding="utf-8") as iobj:
@@ -225,16 +205,28 @@ class MainWidget(QWidget):
 
         return env
 
-    def save_to_file(self):
+    def _save_to_file(self):
         with self.env_file_path.open("w", encoding="utf-8") as f:
-            if self.app_data["env_file"]:
+            if self.app_data.get("env_file", None):
                 for k, v in self.app_data["env_file"].items():
                     f.write(f'{k}="{v}"\n')
 
             f.close()
 
     def closeEvent(self, event):
-        print("Quiting...")
+        print("Program is quiting...")
+
+    def btn_new_slot(self):
+        if not self.btn_new_dialog:
+            self.btn_new_dialog = BtnNewDialog(parent=self)
+            self.btn_new_dialog.show()
+
+    def btn_ok_slot(self):
+        print("Write data to file...")
+        if self.app_data.get("new_confirm", False):
+            self._save_to_file()
+
+        print("Done!")
 
    
 if __name__ == "__main__":

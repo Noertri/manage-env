@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form.ui'
+## Form generated from reading UI file 'btn_new_dialog.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -15,23 +15,22 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
-    QHeaderView, QLayout, QPushButton, QSizePolicy,
-    QSpacerItem, QTableWidget, QTableWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.setWindowModality(Qt.NonModal)
-        MainWindow.resize(600, 400)
+class Ui_BtnNewDialog(object):
+    def setupUi(self, BtnNewDialog):
+        if not BtnNewDialog.objectName():
+            BtnNewDialog.setObjectName(u"BtnNewDialog")
+        BtnNewDialog.setWindowModality(Qt.NonModal)
+        BtnNewDialog.resize(500, 200)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
-        MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(600, 400))
+        sizePolicy.setHeightForWidth(BtnNewDialog.sizePolicy().hasHeightForWidth())
+        BtnNewDialog.setSizePolicy(sizePolicy)
+        BtnNewDialog.setMinimumSize(QSize(500, 200))
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -119,114 +118,85 @@ class Ui_MainWindow(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush14)
 #endif
-        MainWindow.setPalette(palette)
-        self.verticalLayout = QVBoxLayout(MainWindow)
-        self.verticalLayout.setSpacing(20)
-        self.verticalLayout.setContentsMargins(10, 10, 10, 10)
+        BtnNewDialog.setPalette(palette)
+        self.verticalLayout = QVBoxLayout(BtnNewDialog)
+        self.verticalLayout.setSpacing(40)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.verticalLayout.setContentsMargins(20, 20, 20, 20)
-        self.table_frame = QFrame(MainWindow)
-        self.table_frame.setObjectName(u"table_frame")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.table_frame.sizePolicy().hasHeightForWidth())
-        self.table_frame.setSizePolicy(sizePolicy1)
-        self.table_frame.setFrameShape(QFrame.StyledPanel)
-        self.table_frame.setFrameShadow(QFrame.Plain)
-        self.table_lo = QVBoxLayout(self.table_frame)
-        self.table_lo.setSpacing(20)
-        self.table_lo.setContentsMargins(10, 10, 10, 10)
-        self.table_lo.setObjectName(u"table_lo")
-        self.table_lo.setContentsMargins(20, 20, 20, 20)
-        self.table = QTableWidget(self.table_frame)
-        if (self.table.columnCount() < 2):
-            self.table.setColumnCount(2)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        self.table.setObjectName(u"table")
-        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.table.setTabKeyNavigation(False)
-        self.table.setProperty(u"showDropIndicator", False)
-        self.table.setDragDropOverwriteMode(False)
-        self.table.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
-        self.table.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
-        self.table.horizontalHeader().setMinimumSectionSize(250)
-        self.table.horizontalHeader().setStretchLastSection(True)
-        self.table.verticalHeader().setVisible(False)
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setSpacing(20)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.label2 = QLabel(BtnNewDialog)
+        self.label2.setObjectName(u"label2")
 
-        self.table_lo.addWidget(self.table)
+        self.gridLayout.addWidget(self.label2, 1, 0, 1, 1)
 
-        self.btn_lo2 = QHBoxLayout()
-        self.btn_lo2.setSpacing(10)
-        self.btn_lo2.setObjectName(u"btn_lo2")
+        self.label1 = QLabel(BtnNewDialog)
+        self.label1.setObjectName(u"label1")
+
+        self.gridLayout.addWidget(self.label1, 0, 0, 1, 1)
+
+        self.new_var_entry = QLineEdit(BtnNewDialog)
+        self.new_var_entry.setObjectName(u"new_var_entry")
+        self.new_var_entry.setContextMenuPolicy(Qt.DefaultContextMenu)
+
+        self.gridLayout.addWidget(self.new_var_entry, 0, 1, 1, 1)
+
+        self.new_values_entry = QLineEdit(BtnNewDialog)
+        self.new_values_entry.setObjectName(u"new_values_entry")
+        self.new_values_entry.setToolTipDuration(3)
+
+        self.gridLayout.addWidget(self.new_values_entry, 1, 1, 1, 1)
+
+
+        self.verticalLayout.addLayout(self.gridLayout)
+
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setSpacing(10)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.btn_browse_dir = QPushButton(BtnNewDialog)
+        self.btn_browse_dir.setObjectName(u"btn_browse_dir")
+
+        self.horizontalLayout_3.addWidget(self.btn_browse_dir)
+
+        self.btn_browse_file = QPushButton(BtnNewDialog)
+        self.btn_browse_file.setObjectName(u"btn_browse_file")
+
+        self.horizontalLayout_3.addWidget(self.btn_browse_file)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.btn_lo2.addItem(self.horizontalSpacer)
+        self.horizontalLayout_3.addItem(self.horizontalSpacer)
 
-        self.btn_new = QPushButton(self.table_frame)
-        self.btn_new.setObjectName(u"btn_new")
+        self.btn_add = QPushButton(BtnNewDialog)
+        self.btn_add.setObjectName(u"btn_add")
 
-        self.btn_lo2.addWidget(self.btn_new)
+        self.horizontalLayout_3.addWidget(self.btn_add)
 
-        self.btn_edit = QPushButton(self.table_frame)
-        self.btn_edit.setObjectName(u"btn_edit")
+        self.btn_cancel = QPushButton(BtnNewDialog)
+        self.btn_cancel.setObjectName(u"btn_cancel")
 
-        self.btn_lo2.addWidget(self.btn_edit)
-
-        self.btn_delete = QPushButton(self.table_frame)
-        self.btn_delete.setObjectName(u"btn_delete")
-
-        self.btn_lo2.addWidget(self.btn_delete)
+        self.horizontalLayout_3.addWidget(self.btn_cancel)
 
 
-        self.table_lo.addLayout(self.btn_lo2)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
 
 
-        self.verticalLayout.addWidget(self.table_frame)
+        self.retranslateUi(BtnNewDialog)
 
-        self.btn_lo1 = QHBoxLayout()
-        self.btn_lo1.setSpacing(10)
-        self.btn_lo1.setObjectName(u"btn_lo1")
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.btn_lo1.addItem(self.horizontalSpacer_2)
-
-        self.btn_ok = QPushButton(MainWindow)
-        self.btn_ok.setObjectName(u"btn_ok")
-        self.btn_ok.setAutoFillBackground(False)
-
-        self.btn_lo1.addWidget(self.btn_ok)
-
-        self.btn_close = QPushButton(MainWindow)
-        self.btn_close.setObjectName(u"btn_close")
-
-        self.btn_lo1.addWidget(self.btn_close)
-
-
-        self.verticalLayout.addLayout(self.btn_lo1)
-
-
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(BtnNewDialog)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Environment Variables", None))
-        ___qtablewidgetitem = self.table.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Variable", None));
-        ___qtablewidgetitem1 = self.table.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Values", None));
-        self.btn_new.setText(QCoreApplication.translate("MainWindow", u"New", None))
-        self.btn_edit.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
-        self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
-        self.btn_ok.setText(QCoreApplication.translate("MainWindow", u"OK", None))
-        self.btn_close.setText(QCoreApplication.translate("MainWindow", u"Close", None))
+    def retranslateUi(self, BtnNewDialog):
+        BtnNewDialog.setWindowTitle(QCoreApplication.translate("BtnNewDialog", u"Add New Variable", None))
+        self.label2.setText(QCoreApplication.translate("BtnNewDialog", u"Value(s)", None))
+        self.label1.setText(QCoreApplication.translate("BtnNewDialog", u"Variable", None))
+#if QT_CONFIG(tooltip)
+        self.new_values_entry.setToolTip("")
+#endif // QT_CONFIG(tooltip)
+        self.btn_browse_dir.setText(QCoreApplication.translate("BtnNewDialog", u"Browse folder", None))
+        self.btn_browse_file.setText(QCoreApplication.translate("BtnNewDialog", u"Browse file", None))
+        self.btn_add.setText(QCoreApplication.translate("BtnNewDialog", u"Add", None))
+        self.btn_cancel.setText(QCoreApplication.translate("BtnNewDialog", u"Cancel", None))
     # retranslateUi
 
