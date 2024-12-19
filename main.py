@@ -68,7 +68,7 @@ class UiMainWindow(Ui_MainWindow):
 class MainWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.main_ui = UiMainWindow(self)
+        self.ui = UiMainWindow(self)
         self.setFixedSize(600, 400)
 
         # initialization
@@ -184,7 +184,7 @@ class MainWidget(QWidget):
 
         # load model
         self.model = TableModel(self.app_data.get("env_os", {}))
-        self.main_ui.table.setModel(self.model)
+        self.ui.table.setModel(self.model)
 
     def _create_configs(self, config_path: Path):
         with config_path.open("w", encoding="utf-8") as iobj:

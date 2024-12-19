@@ -7,8 +7,8 @@ class BtnNewDialog(QWidget):
     def __init__(self, parent, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setFixedSize(500, 200)
-        self.btn_new_window_ui = Ui_BtnNewDialog()
-        self.btn_new_window_ui.setupUi(self)
+        self.ui_btn_new_dialog = Ui_BtnNewDialog()
+        self.ui_btn_new_dialog.setupUi(self)
         self._parent = parent
 
     def closeEvent(self, event):
