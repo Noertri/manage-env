@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox
+from typing import List
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
 from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
 from dialoguis.btn_edit_dialog_ui import Ui_BtnEditDialog
 from PySide6.QtCore import Qt
@@ -11,33 +12,33 @@ class BtnNewDialog(QWidget):
 
         super().__init__(*args, **kwargs)
         self.setFixedSize(500, 200)
-        self.ui_btn_new_dialog = Ui_BtnNewDialog()
-        self.ui_btn_new_dialog.setupUi(self)
+        self.ui = Ui_BtnNewDialog()
+        self.ui.setupUi(self)
         self._parent: MainWidget = parent
 
-        self.ui_btn_new_dialog.btn_cancel.clicked.connect(self.btn_cancel_slot)
-        self.ui_btn_new_dialog.btn_add.clicked.connect(self.btn_add_slot)
-        self.ui_btn_new_dialog.btn_browse_dir.clicked.connect(self.btn_browse_dir_slot)
-        self.ui_btn_new_dialog.btn_browse_file.clicked.connect(self.btn_browse_file_slot)
+        self.ui.btn_cancel.clicked.connect(self.btn_cancel_slot)
+        self.ui.btn_add.clicked.connect(self.btn_add_slot)
+        self.ui.btn_browse_dir.clicked.connect(self.btn_browse_dir_slot)
+        self.ui.btn_browse_file.clicked.connect(self.btn_browse_file_slot)
 
     def closeEvent(self, event):
         self._parent.btn_new_dialog = None
-        print("Window is closed...")
+        print("Button New dialog is closed...")
 
     @property
     def new_variable(self):
-        return self.ui_btn_new_dialog.new_var_entry.text()
+        return self.ui.new_var_entry.text()
     
     @property
     def new_values(self):
-        return self.ui_btn_new_dialog.new_values_entry.text()
+        return self.ui.new_values_entry.text()
 
     @new_values.setter
     def new_values(self, values: str):
-        self.ui_btn_new_dialog.new_values_entry.insert(values)
+        self.ui.new_values_entry.insert(values)
 
     def btn_cancel_slot(self):
-        print("Add new variable is canceled!")
+        print("Task is canceled!")
         self.close()
 
     def btn_add_slot(self):
@@ -85,7 +86,37 @@ class BtnEditDialog(QWidget):
 
         super().__init__(*args, **kwargs)
         self.setFixedSize(600, 400)
-        self.ui_btn_edit_dialog = Ui_BtnEditDialog()
-        self.ui_btn_edit_dialog.setupUi(self)
+        self.ui = Ui_BtnEditDialog()
+        self.ui.setupUi(self)
         self._parent: MainWidget = parent
         
+        self.selected_items: List[QTableWidgetItem] = self._parent.table.selectedItems()
+        self._load_selected_items()
+
+        # cancel button
+        self.ui.btn_cancel2.clicked.connect(self.btn_cancel_slot)
+
+    @property
+    def selected_var(self):
+        return self.selected_items[0].text()
+    
+    @property
+    def selected_values(self):
+        return self.selected_items[1].text()
+
+    def _load_selected_items(self):
+        self.ui.var_entry.insert(self.selected_var)
+        values_list = self.selected_values.split(":")
+        if len(values_list) > 2:
+            for i, v in enumerate(values_list):
+               self.ui.values_list.insertItem(i, QListWidgetItem(v)) 
+        else:
+            self.ui.values_list.insertItem(0, QListWidgetItem(self.selected_values))
+
+    def closeEvent(self, event):
+        self._parent.btn_edit_dialog = None
+        print("Button Edit dialog is closed...")
+
+    def btn_cancel_slot(self):
+        print("Task is canceled...")
+        self.close()

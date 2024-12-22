@@ -27,7 +27,7 @@ class MainWidget(QWidget):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.setFixedSize(600, 400)
+        self.setFixedSize(600, 500)
 
         self.btn_new_dialog: BtnNewDialog = None
         self.btn_edit_dialog: BtnEditDialog = None
@@ -218,19 +218,19 @@ class MainWidget(QWidget):
             f.close()
 
     def closeEvent(self, event):
-        if self.btn_new_dialog:
+        if self.btn_new_dialog or self.btn_edit_dialog:
             event.ignore()
         else:
             event.accept()
             print("Quit!!!")
 
     def btn_new_slot(self):
-        if not self.btn_new_dialog:
+        if not self.btn_new_dialog and not self.btn_edit_dialog:
             self.btn_new_dialog = BtnNewDialog(parent=self)
             self.btn_new_dialog.show()
 
     def btn_edit_slot(self):
-        if not self.btn_edit_dialog:
+        if not self.btn_edit_dialog and not self.btn_new_dialog and self.table.selectedItems():
             self.btn_edit_dialog = BtnEditDialog(parent=self)
             self.btn_edit_dialog.show()
 

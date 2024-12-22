@@ -145,7 +145,7 @@ class Ui_BtnEditDialog(object):
 
         self.values_list = QListWidget(BtnEditDialog)
         self.values_list.setObjectName(u"values_list")
-        self.values_list.setEditTriggers(QAbstractItemView.EditTrigger.SelectedClicked)
+        self.values_list.setEditTriggers(QAbstractItemView.EditTrigger.DoubleClicked|QAbstractItemView.EditTrigger.SelectedClicked)
         self.values_list.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.values_list.setItemAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
 
