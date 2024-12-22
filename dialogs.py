@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox
-from btn_new_dialog_ui import Ui_BtnNewDialog
+from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
 from PySide6.QtCore import Qt
 
 

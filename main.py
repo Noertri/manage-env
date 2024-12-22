@@ -13,7 +13,7 @@ from PySide6.QtCore import Qt
 #     pyside6-uic form.ui -o ui_form.py, or
 #     pyside2-uic form.ui -o ui_form.py
 
-from main_ui import Ui_MainWindow
+from dialoguis.main_ui import Ui_MainWindow
 from dialogs import BtnNewDialog
 
   
