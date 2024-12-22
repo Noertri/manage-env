@@ -14,7 +14,7 @@ from PySide6.QtCore import Qt
 #     pyside2-uic form.ui -o ui_form.py
 
 from dialoguis.main_ui import Ui_MainWindow
-from dialogs import BtnNewDialog
+from dialogs import BtnNewDialog, BtnEditDialog
 
   
 class MainWidget(QWidget):
@@ -30,6 +30,7 @@ class MainWidget(QWidget):
         self.setFixedSize(600, 400)
 
         self.btn_new_dialog: BtnNewDialog = None
+        self.btn_edit_dialog: BtnEditDialog = None
 
         # customize table header
         table_hor_header = self.ui.table.horizontalHeader()
@@ -43,6 +44,9 @@ class MainWidget(QWidget):
 
         # new button
         self.ui.btn_new.clicked.connect(self.btn_new_slot)
+
+        # edit button
+        self.ui.btn_edit.clicked.connect(self.btn_edit_slot)
 
         # ok button
         self.ui.btn_ok.clicked.connect(self.btn_ok_slot)
@@ -142,13 +146,13 @@ class MainWidget(QWidget):
         if not self.env_file_path.exists():
             self.env_file_path.touch()
 
-            with bashrc_path.open("a", encoding="utf-8") as f:
-                f.write("\n"+script.strip()+"\n")
-                f.close()
+            # with bashrc_path.open("a", encoding="utf-8") as f:
+            #     f.write("\n"+script.strip()+"\n")
+            #     f.close()
 
-            with dotfile_path.open("a", encoding="utf-8") as f:
-                f.write("\n"+script.strip()+"\n")
-                f.close()
+            # with dotfile_path.open("a", encoding="utf-8") as f:
+            #     f.write("\n"+script.strip()+"\n")
+            #     f.close()
 
         env_os = dict(os.environ)
         env_os = dict(filter(self._filter_vars, env_os.items()))
@@ -224,6 +228,11 @@ class MainWidget(QWidget):
         if not self.btn_new_dialog:
             self.btn_new_dialog = BtnNewDialog(parent=self)
             self.btn_new_dialog.show()
+
+    def btn_edit_slot(self):
+        if not self.btn_edit_dialog:
+            self.btn_edit_dialog = BtnEditDialog(parent=self)
+            self.btn_edit_dialog.show()
 
     def btn_ok_slot(self):
         print("Write data to file...")

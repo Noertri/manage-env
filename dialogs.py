@@ -1,16 +1,19 @@
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox
 from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
+from dialoguis.btn_edit_dialog_ui import Ui_BtnEditDialog
 from PySide6.QtCore import Qt
 
 
 class BtnNewDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
+        from main import MainWidget
+
         super().__init__(*args, **kwargs)
         self.setFixedSize(500, 200)
         self.ui_btn_new_dialog = Ui_BtnNewDialog()
         self.ui_btn_new_dialog.setupUi(self)
-        self._parent = parent
+        self._parent: MainWidget = parent
 
         self.ui_btn_new_dialog.btn_cancel.clicked.connect(self.btn_cancel_slot)
         self.ui_btn_new_dialog.btn_add.clicked.connect(self.btn_add_slot)
@@ -73,3 +76,16 @@ class BtnNewDialog(QWidget):
 
         if file_names:
             self.new_values = ";".join(file_names)
+
+
+class BtnEditDialog(QWidget):
+
+    def __init__(self, parent, *args, **kwargs):
+        from main import MainWidget
+
+        super().__init__(*args, **kwargs)
+        self.setFixedSize(600, 400)
+        self.ui_btn_edit_dialog = Ui_BtnEditDialog()
+        self.ui_btn_edit_dialog.setupUi(self)
+        self._parent: MainWidget = parent
+        
