@@ -16,16 +16,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFormLayout, QHBoxLayout,
-    QLabel, QLineEdit, QListWidget, QListWidgetItem,
-    QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout,
-    QWidget)
+    QLabel, QLineEdit, QListView, QListWidget,
+    QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 
 class Ui_BtnEditDialog(object):
     def setupUi(self, BtnEditDialog):
         if not BtnEditDialog.objectName():
             BtnEditDialog.setObjectName(u"BtnEditDialog")
-        BtnEditDialog.resize(600, 400)
-        BtnEditDialog.setMinimumSize(QSize(600, 400))
+        BtnEditDialog.resize(650, 500)
+        BtnEditDialog.setMinimumSize(QSize(650, 500))
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -145,9 +145,17 @@ class Ui_BtnEditDialog(object):
 
         self.values_list = QListWidget(BtnEditDialog)
         self.values_list.setObjectName(u"values_list")
-        self.values_list.setEditTriggers(QAbstractItemView.EditTrigger.DoubleClicked|QAbstractItemView.EditTrigger.SelectedClicked)
-        self.values_list.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-        self.values_list.setItemAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+        self.values_list.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.values_list.setProperty(u"showDropIndicator", False)
+        self.values_list.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.values_list.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.values_list.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.values_list.setSpacing(2)
+        self.values_list.setViewMode(QListView.ListMode)
+        self.values_list.setUniformItemSizes(True)
+        self.values_list.setWordWrap(False)
+        self.values_list.setSelectionRectVisible(True)
+        self.values_list.setItemAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.values_list)
 
@@ -155,6 +163,7 @@ class Ui_BtnEditDialog(object):
         self.horizontalLayout_2.addLayout(self.formLayout)
 
         self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setSpacing(10)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.btn_new2 = QPushButton(BtnEditDialog)
         self.btn_new2.setObjectName(u"btn_new2")
@@ -165,6 +174,15 @@ class Ui_BtnEditDialog(object):
         self.btn_edit2.setObjectName(u"btn_edit2")
 
         self.verticalLayout.addWidget(self.btn_edit2)
+
+        self.btn_delete2 = QPushButton(BtnEditDialog)
+        self.btn_delete2.setObjectName(u"btn_delete2")
+
+        self.verticalLayout.addWidget(self.btn_delete2)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+
+        self.verticalLayout.addItem(self.verticalSpacer_2)
 
         self.btn_browse_dir2 = QPushButton(BtnEditDialog)
         self.btn_browse_dir2.setObjectName(u"btn_browse_dir2")
@@ -177,7 +195,7 @@ class Ui_BtnEditDialog(object):
 
         self.verticalLayout.addWidget(self.btn_browse_file2)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
@@ -209,6 +227,7 @@ class Ui_BtnEditDialog(object):
         self.label_2.setText(QCoreApplication.translate("BtnEditDialog", u"Value(s):", None))
         self.btn_new2.setText(QCoreApplication.translate("BtnEditDialog", u"New", None))
         self.btn_edit2.setText(QCoreApplication.translate("BtnEditDialog", u"Edit", None))
+        self.btn_delete2.setText(QCoreApplication.translate("BtnEditDialog", u"Delete", None))
         self.btn_browse_dir2.setText(QCoreApplication.translate("BtnEditDialog", u"Browse folder", None))
         self.btn_browse_file2.setText(QCoreApplication.translate("BtnEditDialog", u"Browse file", None))
         self.btn_ok2.setText(QCoreApplication.translate("BtnEditDialog", u"OK", None))

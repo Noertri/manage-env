@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBo
 from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
 from dialoguis.btn_edit_dialog_ui import Ui_BtnEditDialog
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QKeyEvent
 
 
 class BtnNewDialog(QWidget):
@@ -76,7 +77,7 @@ class BtnNewDialog(QWidget):
         file_names, _ = file_dialog.getOpenFileNames()
 
         if file_names:
-            self.new_values = ";".join(file_names)
+            self.new_values = ":".join(file_names)
 
 
 class BtnEditDialog(QWidget):
@@ -85,7 +86,7 @@ class BtnEditDialog(QWidget):
         from main import MainWidget
 
         super().__init__(*args, **kwargs)
-        self.setFixedSize(600, 400)
+        self.setFixedSize(650, 500)
         self.ui = Ui_BtnEditDialog()
         self.ui.setupUi(self)
         self._parent: MainWidget = parent
@@ -96,6 +97,9 @@ class BtnEditDialog(QWidget):
         # cancel button
         self.ui.btn_cancel2.clicked.connect(self.btn_cancel_slot)
 
+        # new button
+        self.ui.btn_new2.clicked.connect(self.btn_new_slot)
+
     @property
     def selected_var(self):
         return self.selected_items[0].text()
@@ -104,14 +108,17 @@ class BtnEditDialog(QWidget):
     def selected_values(self):
         return self.selected_items[1].text()
 
+    @property
+    def values_list(self):
+        return self.ui.values_list
+
     def _load_selected_items(self):
         self.ui.var_entry.insert(self.selected_var)
-        values_list = self.selected_values.split(":")
-        if len(values_list) > 2:
-            for i, v in enumerate(values_list):
-               self.ui.values_list.insertItem(i, QListWidgetItem(v)) 
+        texts = self.selected_values.split(":")
+        if len(texts) > 2:
+            self.values_list.addItems(texts)
         else:
-            self.ui.values_list.insertItem(0, QListWidgetItem(self.selected_values))
+            self.values_list.addItem(self.selected_values)
 
     def closeEvent(self, event):
         self._parent.btn_edit_dialog = None
@@ -120,3 +127,30 @@ class BtnEditDialog(QWidget):
     def btn_cancel_slot(self):
         print("Task is canceled...")
         self.close()
+
+    def btn_ok_slot(self):
+        pass
+
+    def btn_new_slot(self):
+        new_item = QListWidgetItem()
+        new_item.setText("New value")
+        new_item.setFlags(Qt.ItemFlag.ItemIsEditable|new_item.flags())
+        
+        self.values_list.addItem(new_item)
+        self.values_list.setCurrentItem(new_item)
+        self.values_list.editItem(self.values_list.currentItem())
+
+    # def keyPressEvent(self, event):
+    #     print(event.)
+
+    def btn_edit_slot(self):
+        pass
+    
+    def btn_delete_slot(self):
+        pass
+
+    def btn_browse_dir_slot(self):
+        pass
+
+    def btn_browse_file_slot(self):
+        pass
