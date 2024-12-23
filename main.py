@@ -163,6 +163,12 @@ class MainWidget(QWidget):
             "env_os": dict(sorted(env_os.items(), key=lambda x: x[0]))
         }
 
+    def set_env_file(self, k, v):
+        self.app_data["env_file"][k] = v
+
+    def set_app_data(self, k, v):
+        self.app_data[k] = v
+
     def _load_env_vars(self):
         env_vars = list(self.app_data.get("env_os", {}).items())
         self.table.setRowCount(len(env_vars))
@@ -170,8 +176,8 @@ class MainWidget(QWidget):
         for i in range(self.ui.table.rowCount()):
             var_item = QTableWidgetItem(env_vars[i][0])
             values_item = QTableWidgetItem(env_vars[i][1])
-            self.ui.table.setItem(i, 0, var_item)
-            self.ui.table.setItem(i, 1, values_item)
+            self.table.setItem(i, 0, var_item)
+            self.table.setItem(i, 1, values_item)
 
     def _create_configs(self, config_path: Path):
         with config_path.open("w", encoding="utf-8") as iobj:
@@ -236,9 +242,13 @@ class MainWidget(QWidget):
 
     def btn_ok_slot(self):
         print("Write data to file...")
-        if self.app_data.get("new_confirm", False):
+        if self.app_data.get("new_btn_confirm", False):
             self._save_to_file()
 
+        if self.app_data.get("edit_btn_confirm", False):
+            self._save_to_file()
+
+        self.ui.btn_ok.setDisabled(True)
         print("Done!")
 
     def btn_close_slot(self):

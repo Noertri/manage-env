@@ -525,6 +525,9 @@
          <property name="showDropIndicator" stdset="0">
           <bool>false</bool>
          </property>
+         <property name="defaultDropAction">
+          <enum>Qt::IgnoreAction</enum>
+         </property>
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
@@ -535,7 +538,7 @@
           <enum>QAbstractItemView::ScrollPerPixel</enum>
          </property>
          <property name="spacing">
-          <number>2</number>
+          <number>1</number>
          </property>
          <property name="viewMode">
           <enum>QListView::ListMode</enum>
