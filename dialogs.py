@@ -117,6 +117,12 @@ class BtnEditDialog(QWidget):
         # delete button
         self.ui.btn_delete2.clicked.connect(self.btn_delete_slot)
 
+        # browse folder button
+        self.ui.btn_browse_dir2.clicked.connect(self.btn_browse_dir_slot)
+
+        # browse file button
+        self.ui.btn_browse_file2.clicked.connect(self.btn_browse_file_slot)
+
     @property
     def values_list(self):
         return self.ui.values_list
@@ -154,13 +160,15 @@ class BtnEditDialog(QWidget):
 
         _new_values = ""
 
+        # new values are added 
         if len(new_values) > len(self._selected_values):
             diff_values = list(set(new_values)-set(self._selected_values))
-            if diff_values and new_var in self._parent.app_configs["defaults"]:
+            if diff_values and new_var in self._parent.app_configs["defaults"]: # if variable is default of os
                 _new_values = "{0}:${1}".format(":".join(diff_values), new_var)
-            elif diff_values and new_var not in self._parent.app_configs["defaults"]:
+            elif diff_values and new_var not in self._parent.app_configs["defaults"]: # otherwise
                 _new_values = ":".join(new_values)
         
+        # no modifications or values are deleted
         if len(new_values) <= len(self._selected_values) and new_var not in self._parent.app_configs["defaults"]:
             _new_values = ":".join(new_values)
 
@@ -189,7 +197,20 @@ class BtnEditDialog(QWidget):
         self.values_list.takeItem(current_row)
 
     def btn_browse_dir_slot(self):
-        pass
+        file_dialog = QFileDialog()
+        dir_name = file_dialog.getExistingDirectory()
 
+        if dir_name:
+            new_values = ListWidgetItem()
+            new_values.setText(dir_name.strip())
+            self.values_list.addItem(new_values)
+        
     def btn_browse_file_slot(self):
-        pass
+        file_dialog = QFileDialog()
+        file_names, _ = file_dialog.getOpenFileNames()
+
+        if file_names:
+            for fname in file_names:
+                new_value = ListWidgetItem()
+                new_value.setText(fname)
+                self.values_list.addItem(new_value)
