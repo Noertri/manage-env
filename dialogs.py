@@ -57,7 +57,7 @@ class BtnNewDialog(QWidget):
                 self._parent.table.setItem(idx, 0, QTableWidgetItem(self.new_variable))
                 self._parent.table.setItem(idx, 1, QTableWidgetItem(self.new_values))
                 
-                self._parent.set_env_file(self.new_variable, self.new_values)
+                self._parent.update_env_file(self.new_variable, self.new_values)
                 self._parent.set_app_data("new_btn_confirm", True)
 
         print("Done!")
@@ -82,7 +82,7 @@ class ListWidgetItem(QListWidgetItem):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.setSizeHint(QSize(500, 30))
+        self.setSizeHint(QSize(400, 25))
         
 
 class BtnEditDialog(QWidget):
@@ -96,9 +96,9 @@ class BtnEditDialog(QWidget):
         self.ui.setupUi(self)
         self._parent: MainWidget = parent
         
-        self.selected_var: QTableWidgetItem = None
-        self.selected_values: QTableWidgetItem = None
-        self.selected_var, self.selected_values = self._parent.table.selectedItems()
+        self._selected_values = []
+        self._row = 0
+        self._selected_items: List[QTableWidgetItem] = self._parent.table.selectedItems()
         
         self._load_selected_items()
 
@@ -114,31 +114,22 @@ class BtnEditDialog(QWidget):
         # edit button
         self.ui.btn_edit2.clicked.connect(self.btn_edit_slot)
 
-    @property
-    def get_selected_var(self) -> str:
-        return self.selected_var.text()
-    
-    @property
-    def get_selected_values(self) -> List[str]:
-        return self.selected_values.text().split(":")
+        # delete button
+        self.ui.btn_delete2.clicked.connect(self.btn_delete_slot)
 
     @property
     def values_list(self):
         return self.ui.values_list
 
     def _load_selected_items(self):
-        self.ui.var_entry.insert(self.get_selected_var)
+        self.ui.var_entry.insert(self._selected_items[0].text())
+        self._row = self._selected_items[0].row()
 
-        if len(self.get_selected_values) > 2:
-            for t in self.get_selected_values:
-                item = ListWidgetItem()
-                item.setFlags(item.flags()|Qt.ItemFlag.ItemIsSelectable)
-                item.setText(t)
-                self.values_list.addItem(self._item(t))
-        else:
+        for t in self._selected_items[1].text().split(":"):
+            self._selected_values.append(t)
             item = ListWidgetItem()
             item.setFlags(item.flags()|Qt.ItemFlag.ItemIsSelectable)
-            item.setText(":".join(self.get_selected_values))
+            item.setText(t)
             self.values_list.addItem(item)
 
     def closeEvent(self, event):
@@ -150,23 +141,32 @@ class BtnEditDialog(QWidget):
         self.close()
 
     def btn_ok_slot(self):
-        new_values = [self.values_list.item(i).text().strip() for i in range(self.values_list.count())]
-        self._parent.set_app_data("edit_btn_confirm", True)
-        if len(new_values) > len(self.get_selected_values) and self.get_selected_var in self._parent.app_configs["defaults"]:
-            new_values = list(set(new_values) - set(self.get_selected_values))
-            if all(new_values):
-                new_values = "${1}:{0}".format(":".join(new_values), self.get_selected_var)
-            else:
-                new_values = ":".join(self.get_selected_values)
-        else:
-            new_values = ":".join(new_values)
+        new_var = self.ui.var_entry.text()
+        new_values = []
 
-        self._parent.set_env_file(self.get_selected_var, new_values)
-        old_var = self.get_selected_var
-        old_row = self.selected_var.row()
-        self._parent.table.removeRow(old_row)
-        self._parent.table.setItem(old_row, 0, QTableWidgetItem(old_var))
-        self._parent.table.setItem(old_row, 1, QTableWidgetItem(new_values))
+        for i in range(self.values_list.count()):
+            if t := self.values_list.item(i).text().strip():
+                new_values.append(t)
+
+        # update table
+        self._parent.table.setItem(self._row, 0, QTableWidgetItem(new_var))
+        self._parent.table.setItem(self._row, 1, QTableWidgetItem(":".join(new_values)))
+
+        _new_values = ""
+
+        if len(new_values) > len(self._selected_values):
+            diff_values = list(set(new_values)-set(self._selected_values))
+            if diff_values and new_var in self._parent.app_configs["defaults"]:
+                _new_values = "{0}:${1}".format(":".join(diff_values), new_var)
+            elif diff_values and new_var not in self._parent.app_configs["defaults"]:
+                _new_values = ":".join(new_values)
+        
+        if len(new_values) <= len(self._selected_values) and new_var not in self._parent.app_configs["defaults"]:
+            _new_values = ":".join(new_values)
+
+        if new_var and _new_values:
+            self._parent.update_env_file(new_var, _new_values)
+            self._parent.set_app_data("edit_btn_confirm", True)
 
         self.close()
         
@@ -185,7 +185,8 @@ class BtnEditDialog(QWidget):
         self.values_list.editItem(current_item)
     
     def btn_delete_slot(self):
-        pass
+        current_row = self.values_list.currentRow()
+        self.values_list.takeItem(current_row)
 
     def btn_browse_dir_slot(self):
         pass

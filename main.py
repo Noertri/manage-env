@@ -4,6 +4,7 @@ import re
 import sys
 import os
 from pathlib import Path
+from typing import Dict
 
 from PySide6.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetItem, QTableWidget
 from PySide6.QtCore import Qt
@@ -163,7 +164,7 @@ class MainWidget(QWidget):
             "env_os": dict(sorted(env_os.items(), key=lambda x: x[0]))
         }
 
-    def set_env_file(self, k, v):
+    def update_env_file(self, k, v):
         self.app_data["env_file"][k] = v
 
     def set_app_data(self, k, v):
@@ -199,7 +200,7 @@ class MainWidget(QWidget):
         else:
             return x
 
-    def load_env_file(self):
+    def load_env_file(self) -> Dict[str, str]:
         pattern = re.compile(r'([_A-Za-z0-9]+?)="(.*)"|([_A-Za-z0-9]+?)=(.*)')
 
         env = dict()
