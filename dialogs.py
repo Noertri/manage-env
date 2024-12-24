@@ -4,8 +4,7 @@ import copy
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
 from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
 from dialoguis.btn_edit_dialog_ui import Ui_BtnEditDialog
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QKeyEvent
+from PySide6.QtCore import Qt, QSize
 
 
 class BtnNewDialog(QWidget):
@@ -79,6 +78,13 @@ class BtnNewDialog(QWidget):
             self.new_values = ":".join(file_names)
 
 
+class ListWidgetItem(QListWidgetItem):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setSizeHint(QSize(500, 30))
+        
+
 class BtnEditDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
@@ -122,14 +128,16 @@ class BtnEditDialog(QWidget):
 
     def _load_selected_items(self):
         self.ui.var_entry.insert(self.get_selected_var)
-    
+
         if len(self.get_selected_values) > 2:
             for t in self.get_selected_values:
-                item = QListWidgetItem()
+                item = ListWidgetItem()
+                item.setFlags(item.flags()|Qt.ItemFlag.ItemIsSelectable)
                 item.setText(t)
-                self.values_list.addItem(item)
+                self.values_list.addItem(self._item(t))
         else:
-            item = QListWidgetItem()
+            item = ListWidgetItem()
+            item.setFlags(item.flags()|Qt.ItemFlag.ItemIsSelectable)
             item.setText(":".join(self.get_selected_values))
             self.values_list.addItem(item)
 
@@ -163,7 +171,7 @@ class BtnEditDialog(QWidget):
         self.close()
         
     def btn_new_slot(self):
-        new_item = QListWidgetItem()
+        new_item = ListWidgetItem()
         new_item.setText("New value")
         new_item.setFlags(Qt.ItemFlag.ItemIsEditable|new_item.flags())
         
