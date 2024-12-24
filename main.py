@@ -5,7 +5,7 @@ import sys
 import os
 from pathlib import Path
 
-from PySide6.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetItem
+from PySide6.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetItem, QTableWidget
 from PySide6.QtCore import Qt
 
 # Important:
@@ -52,13 +52,13 @@ class MainWidget(QWidget):
         self.ui.btn_ok.clicked.connect(self.btn_ok_slot)
 
     @property
-    def table(self):
+    def table(self) -> QTableWidget:
         return self.ui.table
 
     def init_app(self):
         self.app_workdir = Path.cwd()
         self.app_configs = {
-                    "commons": [
+                    "defaults": [
                         "HOME",
                         "PATH",
                         "PWD",
@@ -181,18 +181,18 @@ class MainWidget(QWidget):
 
     def _create_configs(self, config_path: Path):
         with config_path.open("w", encoding="utf-8") as iobj:
-            json.dump(self.app_configs, iobj)
+            json.dump(self.app_configs["excludes"], iobj)
             iobj.close()
 
     def _load_configs(self, config_path: Path):
         with config_path.open("r", encoding="utf-8") as iobj:
-            self.app_configs = json.load(iobj)
+            self.app_configs["excludes"] = json.load(iobj)
             iobj.close()
 
     def _filter_vars(self, x):
         exclude_patterns = re.compile(r"|".join(self.app_configs["excludes"]))
 
-        if x in self.app_configs["commons"]:
+        if x in self.app_configs["defaults"]:
             return True
         elif exclude_patterns.match(x[0]):
             return False

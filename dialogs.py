@@ -1,4 +1,6 @@
 from typing import List
+import copy
+
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
 from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
 from dialoguis.btn_edit_dialog_ui import Ui_BtnEditDialog
@@ -88,7 +90,9 @@ class BtnEditDialog(QWidget):
         self.ui.setupUi(self)
         self._parent: MainWidget = parent
         
-        self.selected_items: List[QTableWidgetItem] = self._parent.table.selectedItems()
+        self.selected_var: QTableWidgetItem = None
+        self.selected_values: QTableWidgetItem = None
+        self.selected_var, self.selected_values = self._parent.table.selectedItems()
         
         self._load_selected_items()
 
@@ -105,28 +109,28 @@ class BtnEditDialog(QWidget):
         self.ui.btn_edit2.clicked.connect(self.btn_edit_slot)
 
     @property
-    def selected_var(self) -> str:
-        return self.selected_items[0].text()
+    def get_selected_var(self) -> str:
+        return self.selected_var.text()
     
     @property
-    def selected_values(self) -> List[str]:
-        return self.selected_items[1].text().split(":")
+    def get_selected_values(self) -> List[str]:
+        return self.selected_values.text().split(":")
 
     @property
     def values_list(self):
         return self.ui.values_list
 
     def _load_selected_items(self):
-        self.ui.var_entry.insert(self.selected_var)
+        self.ui.var_entry.insert(self.get_selected_var)
     
-        if len(self.selected_values) > 2:
-            for t in self.selected_values:
+        if len(self.get_selected_values) > 2:
+            for t in self.get_selected_values:
                 item = QListWidgetItem()
                 item.setText(t)
                 self.values_list.addItem(item)
         else:
             item = QListWidgetItem()
-            item.setText(":".join(self.selected_values))
+            item.setText(":".join(self.get_selected_values))
             self.values_list.addItem(item)
 
     def closeEvent(self, event):
@@ -140,18 +144,18 @@ class BtnEditDialog(QWidget):
     def btn_ok_slot(self):
         new_values = [self.values_list.item(i).text().strip() for i in range(self.values_list.count())]
         self._parent.set_app_data("edit_btn_confirm", True)
-        if len(new_values) > len(self.selected_values):
-            new_values = list(set(new_values) - set(self.selected_values))
+        if len(new_values) > len(self.get_selected_values) and self.get_selected_var in self._parent.app_configs["defaults"]:
+            new_values = list(set(new_values) - set(self.get_selected_values))
             if all(new_values):
-                new_values = "{0}:${1}".format(":".join(new_values), self.selected_var)
+                new_values = "${1}:{0}".format(":".join(new_values), self.get_selected_var)
             else:
-                new_values = ":".join(self.selected_values)
-        elif len(new_values) <= len(self.selected_values):
+                new_values = ":".join(self.get_selected_values)
+        else:
             new_values = ":".join(new_values)
 
-        self._parent.set_env_file(self.selected_var, new_values)
-        old_var = self.selected_var
-        old_row = self._parent.table.selectedItems()[0].row()
+        self._parent.set_env_file(self.get_selected_var, new_values)
+        old_var = self.get_selected_var
+        old_row = self.selected_var.row()
         self._parent.table.removeRow(old_row)
         self._parent.table.setItem(old_row, 0, QTableWidgetItem(old_var))
         self._parent.table.setItem(old_row, 1, QTableWidgetItem(new_values))
