@@ -4,9 +4,7 @@ import re
 import sys
 import os
 from pathlib import Path
-
 from PySide6.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetItem, QTableWidget
-from PySide6.QtCore import Qt
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
