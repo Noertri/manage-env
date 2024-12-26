@@ -307,6 +307,6 @@ pyrightconfig.json
 
 *.user
 .local/*
-config*.json
-*.bak
+config.json
+config.json.bak
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,visualstudiocode

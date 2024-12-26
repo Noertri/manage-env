@@ -75,16 +75,69 @@ class MainWindow(QWidget):
                         "EDITOR",
                         "TEMP",
                         "PS1"
+                    ],
+                    "excludes": [
+                        ".*CURRENT_DESKTOP",
+                        ".*RUNTIME.*",
+                        ".*SESSION.*",
+                        ".*MENU_PREFIX",
+                        "PYSIDE.*",
+                        "GIO.*",
+                        "GDM_LANG",
+                        "WINDOWPATH",
+                        "QT.*",
+                        "LC.*",
+                        "KDE.*",
+                        "GTK.*",
+                        "PAM.*",
+                        "^_.*",
+                        "SESSION_MANAGER",
+                        ".*TERM.*",
+                        "SSH_AUTH_SOCK", 
+                        "XMODIFIERS", 
+                        "DESKTOP_SESSION",
+                        "SSH_AGENT_PID", 
+                        "XCURSOR_SIZE",
+                        "GPG_AGENT_INFO", 
+                        "SYSTEMD_EXEC_PID", 
+                        "XAUTHORITY", 
+                        "VSCODE_GIT_ASKPASS_NODE", 
+                        "IM_CONFIG_PHASE",
+                        "LS_COLORS", 
+                        "VIRTUAL_ENV", 
+                        "GIT_ASKPASS",
+                        "INVOCATION_ID", 
+                        "MANAGERPID", 
+                        "CHROME_DESKTOP", 
+                        "CLUTTER_IM_MODULE", 
+                        "VSCODE_GIT_ASKPASS_EXTRA_ARGS", 
+                        "LESS.*",
+                        "VSCODE_GIT_IPC_HANDLE",
+                        "DISPLAY",
+                        "SHLVL", 
+                        "VIRTUAL_ENV_PROMPT",
+                        "VSCODE_GIT_ASKPASS_MAIN",
+                        "JOURNAL_STREAM", 
+                        "XCURSOR_THEME", 
+                        "GDK_BACKEND",
+                        ".*BUS.*",
+                        ".*DEBUG.*",
+                        ".*ENCODING.*",
+                        ".*BUFFERED.*",
+                        "PYDEVD.*",
+                        "LD.*",
+                        "TK.*",
+                        "TCL.*"
                     ]
                 }
         
         self.env_file_path = Path("{0}/.environment".format(Path.home()))
         self.app_data = dict()
 
-        if not self.app_workdir.joinpath("configs.json").exists():
-            self._create_configs(self.app_workdir.joinpath("configs.json"))
+        if not self.app_workdir.joinpath("config.json").exists():
+            self._create_configs(self.app_workdir.joinpath("config.json"))
         else:
-            self._load_configs(self.app_workdir.joinpath("configs.json"))
+            self._load_configs(self.app_workdir.joinpath("config.json"))
         
         # script = 'if [ -f ~/.environment ]; then\n\tset -a\n\tsource ~/.environment\n\tset +a\nfi'
 
@@ -118,21 +171,23 @@ class MainWindow(QWidget):
 
     def _create_configs(self, config_path: Path):
         with config_path.open("w", encoding="utf-8") as iobj:
-            json.dump(self.app_configs, iobj)
+            json.dump(self.app_configs["excludes"], iobj)
             iobj.close()
 
     def _load_configs(self, config_path: Path):
         with config_path.open("r", encoding="utf-8") as iobj:
-            self.app_configs = json.load(iobj)
+            self.app_configs["excludes"] = json.load(iobj)
             iobj.close()
 
     def _filter_vars(self, x):
-        defaults_patterns = re.compile(r"|".join(self.app_configs["defaults"]))
+        exclude_patterns = re.compile(r"|".join(self.app_configs["excludes"]))
 
-        if defaults_patterns.match(x[0]):
-            return x
-        else:
+        if x in self.app_configs["defaults"]:
+            return True
+        elif exclude_patterns.match(x[0]):
             return False
+        else:
+            return x
 
     def load_env_file(self) -> Dict[str, str]:
         pattern = re.compile(r'([_A-Za-z0-9]+?)="(.*)"|([_A-Za-z0-9]+?)=(.*)')
