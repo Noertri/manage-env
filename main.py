@@ -18,7 +18,7 @@ from dialoguis.main_ui import Ui_MainWindow
 from dialogs import BtnNewDialog, BtnEditDialog
 
   
-class MainWidget(QWidget):
+class MainWindow(QWidget):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -256,6 +256,6 @@ class MainWidget(QWidget):
    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    widget = MainWidget()
-    widget.show()
+    main_window = MainWindow()
+    main_window.show()
     sys.exit(app.exec())
