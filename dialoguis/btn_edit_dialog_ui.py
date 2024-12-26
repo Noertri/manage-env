@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form.ui'
+## Form generated from reading UI file 'btn_edit_dialog.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -15,22 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QHBoxLayout,
-    QHeaderView, QLayout, QPushButton, QSizePolicy,
-    QSpacerItem, QTableView, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFormLayout, QHBoxLayout,
+    QLabel, QLineEdit, QListView, QListWidget,
+    QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.setWindowModality(Qt.NonModal)
-        MainWindow.resize(600, 400)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
-        MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(600, 400))
+class Ui_BtnEditDialog(object):
+    def setupUi(self, BtnEditDialog):
+        if not BtnEditDialog.objectName():
+            BtnEditDialog.setObjectName(u"BtnEditDialog")
+        BtnEditDialog.resize(650, 500)
+        BtnEditDialog.setMinimumSize(QSize(650, 500))
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -118,108 +113,125 @@ class Ui_MainWindow(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush14)
 #endif
-        MainWindow.setPalette(palette)
-        self.verticalLayout = QVBoxLayout(MainWindow)
-        self.verticalLayout.setSpacing(20)
-        self.verticalLayout.setContentsMargins(10, 10, 10, 10)
+        BtnEditDialog.setPalette(palette)
+        BtnEditDialog.setAutoFillBackground(True)
+        self.verticalLayout_2 = QVBoxLayout(BtnEditDialog)
+        self.verticalLayout_2.setSpacing(20)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(20, 20, 20, 20)
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setSpacing(20)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(-1, -1, 0, -1)
+        self.formLayout = QFormLayout()
+        self.formLayout.setObjectName(u"formLayout")
+        self.formLayout.setHorizontalSpacing(20)
+        self.formLayout.setVerticalSpacing(20)
+        self.label = QLabel(BtnEditDialog)
+        self.label.setObjectName(u"label")
+
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label)
+
+        self.var_entry = QLineEdit(BtnEditDialog)
+        self.var_entry.setObjectName(u"var_entry")
+        self.var_entry.setReadOnly(True)
+
+        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.var_entry)
+
+        self.label_2 = QLabel(BtnEditDialog)
+        self.label_2.setObjectName(u"label_2")
+
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_2)
+
+        self.values_list = QListWidget(BtnEditDialog)
+        self.values_list.setObjectName(u"values_list")
+        self.values_list.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.values_list.setProperty(u"showDropIndicator", False)
+        self.values_list.setDefaultDropAction(Qt.IgnoreAction)
+        self.values_list.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.values_list.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.values_list.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.values_list.setSpacing(1)
+        self.values_list.setViewMode(QListView.ListMode)
+        self.values_list.setUniformItemSizes(True)
+        self.values_list.setWordWrap(False)
+        self.values_list.setSelectionRectVisible(True)
+        self.values_list.setItemAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.values_list)
+
+
+        self.horizontalLayout_2.addLayout(self.formLayout)
+
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setSpacing(10)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setSizeConstraint(QLayout.SetDefaultConstraint)
-        self.verticalLayout.setContentsMargins(20, 20, 20, 20)
-        self.table_frame = QFrame(MainWindow)
-        self.table_frame.setObjectName(u"table_frame")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.table_frame.sizePolicy().hasHeightForWidth())
-        self.table_frame.setSizePolicy(sizePolicy1)
-        self.table_frame.setFrameShape(QFrame.StyledPanel)
-        self.table_frame.setFrameShadow(QFrame.Plain)
-        self.table_lo = QVBoxLayout(self.table_frame)
-        self.table_lo.setSpacing(20)
-        self.table_lo.setContentsMargins(10, 10, 10, 10)
-        self.table_lo.setObjectName(u"table_lo")
-        self.table_lo.setContentsMargins(20, 20, 20, 20)
-        self.table = QTableView(self.table_frame)
-        self.table.setObjectName(u"table")
-        self.table.setFrameShadow(QFrame.Plain)
-        self.table.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.table.setTabKeyNavigation(False)
-        self.table.setProperty(u"showDropIndicator", False)
-        self.table.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table.setVerticalScrollMode(QAbstractItemView.ScrollPerItem)
-        self.table.setHorizontalScrollMode(QAbstractItemView.ScrollPerItem)
-        self.table.setWordWrap(False)
-        self.table.horizontalHeader().setVisible(True)
-        self.table.horizontalHeader().setMinimumSectionSize(250)
-        self.table.horizontalHeader().setDefaultSectionSize(250)
-        self.table.horizontalHeader().setStretchLastSection(True)
-        self.table.verticalHeader().setVisible(False)
+        self.btn_new2 = QPushButton(BtnEditDialog)
+        self.btn_new2.setObjectName(u"btn_new2")
 
-        self.table_lo.addWidget(self.table)
+        self.verticalLayout.addWidget(self.btn_new2)
 
-        self.btn_lo2 = QHBoxLayout()
-        self.btn_lo2.setSpacing(10)
-        self.btn_lo2.setObjectName(u"btn_lo2")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.btn_edit2 = QPushButton(BtnEditDialog)
+        self.btn_edit2.setObjectName(u"btn_edit2")
 
-        self.btn_lo2.addItem(self.horizontalSpacer)
+        self.verticalLayout.addWidget(self.btn_edit2)
 
-        self.btn_new = QPushButton(self.table_frame)
-        self.btn_new.setObjectName(u"btn_new")
+        self.btn_delete2 = QPushButton(BtnEditDialog)
+        self.btn_delete2.setObjectName(u"btn_delete2")
 
-        self.btn_lo2.addWidget(self.btn_new)
+        self.verticalLayout.addWidget(self.btn_delete2)
 
-        self.btn_edit = QPushButton(self.table_frame)
-        self.btn_edit.setObjectName(u"btn_edit")
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
-        self.btn_lo2.addWidget(self.btn_edit)
+        self.verticalLayout.addItem(self.verticalSpacer_2)
 
-        self.btn_delete = QPushButton(self.table_frame)
-        self.btn_delete.setObjectName(u"btn_delete")
+        self.btn_browse_dir2 = QPushButton(BtnEditDialog)
+        self.btn_browse_dir2.setObjectName(u"btn_browse_dir2")
+        self.btn_browse_dir2.setMinimumSize(QSize(110, 0))
 
-        self.btn_lo2.addWidget(self.btn_delete)
+        self.verticalLayout.addWidget(self.btn_browse_dir2)
+
+        self.btn_browse_file2 = QPushButton(BtnEditDialog)
+        self.btn_browse_file2.setObjectName(u"btn_browse_file2")
+
+        self.verticalLayout.addWidget(self.btn_browse_file2)
+
+        self.verticalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout.addItem(self.verticalSpacer)
+
+        self.btn_ok2 = QPushButton(BtnEditDialog)
+        self.btn_ok2.setObjectName(u"btn_ok2")
+
+        self.verticalLayout.addWidget(self.btn_ok2)
+
+        self.btn_cancel2 = QPushButton(BtnEditDialog)
+        self.btn_cancel2.setObjectName(u"btn_cancel2")
+
+        self.verticalLayout.addWidget(self.btn_cancel2)
 
 
-        self.table_lo.addLayout(self.btn_lo2)
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
 
 
-        self.verticalLayout.addWidget(self.table_frame)
-
-        self.btn_lo1 = QHBoxLayout()
-        self.btn_lo1.setSpacing(10)
-        self.btn_lo1.setObjectName(u"btn_lo1")
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.btn_lo1.addItem(self.horizontalSpacer_2)
-
-        self.btn_ok = QPushButton(MainWindow)
-        self.btn_ok.setObjectName(u"btn_ok")
-        self.btn_ok.setAutoFillBackground(False)
-
-        self.btn_lo1.addWidget(self.btn_ok)
-
-        self.btn_close = QPushButton(MainWindow)
-        self.btn_close.setObjectName(u"btn_close")
-
-        self.btn_lo1.addWidget(self.btn_close)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
 
 
-        self.verticalLayout.addLayout(self.btn_lo1)
+        self.retranslateUi(BtnEditDialog)
 
-
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(BtnEditDialog)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Environment Variables", None))
-        self.btn_new.setText(QCoreApplication.translate("MainWindow", u"New", None))
-        self.btn_edit.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
-        self.btn_delete.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
-        self.btn_ok.setText(QCoreApplication.translate("MainWindow", u"OK", None))
-        self.btn_close.setText(QCoreApplication.translate("MainWindow", u"Close", None))
+    def retranslateUi(self, BtnEditDialog):
+        BtnEditDialog.setWindowTitle(QCoreApplication.translate("BtnEditDialog", u"Edit Variable", None))
+        self.label.setText(QCoreApplication.translate("BtnEditDialog", u"Variable:", None))
+        self.label_2.setText(QCoreApplication.translate("BtnEditDialog", u"Value(s):", None))
+        self.btn_new2.setText(QCoreApplication.translate("BtnEditDialog", u"New", None))
+        self.btn_edit2.setText(QCoreApplication.translate("BtnEditDialog", u"Edit", None))
+        self.btn_delete2.setText(QCoreApplication.translate("BtnEditDialog", u"Delete", None))
+        self.btn_browse_dir2.setText(QCoreApplication.translate("BtnEditDialog", u"Browse folder", None))
+        self.btn_browse_file2.setText(QCoreApplication.translate("BtnEditDialog", u"Browse file", None))
+        self.btn_ok2.setText(QCoreApplication.translate("BtnEditDialog", u"OK", None))
+        self.btn_cancel2.setText(QCoreApplication.translate("BtnEditDialog", u"Cancel", None))
     # retranslateUi
 
