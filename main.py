@@ -134,10 +134,10 @@ class MainWindow(QWidget):
         self.env_file_path = Path("{0}/.environment".format(Path.home()))
         self.app_data = dict()
 
-        if not self.app_workdir.joinpath("config.json").exists():
-            self._create_configs(self.app_workdir.joinpath("config.json"))
+        if not self.app_workdir.joinpath("configs.json").exists():
+            self._create_configs(self.app_workdir.joinpath("configs.json"))
         else:
-            self._load_configs(self.app_workdir.joinpath("config.json"))
+            self._load_configs(self.app_workdir.joinpath("configs.json"))
         
         # script = 'if [ -f ~/.environment ]; then\n\tset -a\n\tsource ~/.environment\n\tset +a\nfi'
 
@@ -171,20 +171,18 @@ class MainWindow(QWidget):
 
     def _create_configs(self, config_path: Path):
         with config_path.open("w", encoding="utf-8") as iobj:
-            json.dump(self.app_configs["excludes"], iobj)
+            json.dump(self.app_configs, iobj)
             iobj.close()
 
     def _load_configs(self, config_path: Path):
         with config_path.open("r", encoding="utf-8") as iobj:
-            self.app_configs["excludes"] = json.load(iobj)
+            self.app_configs = json.load(iobj)
             iobj.close()
 
     def _filter_vars(self, x):
         exclude_patterns = re.compile(r"|".join(self.app_configs["excludes"]))
 
-        if x in self.app_configs["defaults"]:
-            return True
-        elif exclude_patterns.match(x[0]):
+        if exclude_patterns.match(x[0]):
             return False
         else:
             return x
