@@ -1,5 +1,4 @@
 from typing import List
-import copy
 
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
 from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
@@ -25,7 +24,6 @@ class BtnNewDialog(QWidget):
 
     def closeEvent(self, event):
         self._parent.btn_new_dialog = None
-        print("Button New dialog is closed...")
 
     @property
     def new_variable(self):
@@ -40,11 +38,9 @@ class BtnNewDialog(QWidget):
         self.ui.new_values_entry.insert(values)
 
     def btn_cancel_slot(self):
-        print("Task is canceled!")
         self.close()
 
     def btn_add_slot(self):
-        print("Add new variable and values...")
         if self.new_variable and self.new_values:
             idx = 0
             for i in range(self._parent.table.rowCount()):
@@ -58,9 +54,8 @@ class BtnNewDialog(QWidget):
                 self._parent.table.setItem(idx, 1, QTableWidgetItem(self.new_values))
                 
                 self._parent.update_env_file(self.new_variable, self.new_values)
-                self._parent.set_app_data("new_btn_confirm", True)
+                self._parent.set_app_data("btn_new_confirm", True)
 
-        print("Done!")
         self.close()
 
     def btn_browse_dir_slot(self):
@@ -140,10 +135,8 @@ class BtnEditDialog(QWidget):
 
     def closeEvent(self, event):
         self._parent.btn_edit_dialog = None
-        print("Button Edit dialog is closed...")
 
     def btn_cancel_slot(self):
-        print("Task is canceled...")
         self.close()
 
     def btn_ok_slot(self):
@@ -163,7 +156,7 @@ class BtnEditDialog(QWidget):
         # new values are added 
         if len(new_values) > len(self._selected_values):
             diff_values = list(set(new_values)-set(self._selected_values))
-            if diff_values and new_var in self._parent.app_configs["defaults"]: # if variable is default of os
+            if diff_values and new_var in self._parent.app_configs["defaults"]: # if variable is default
                 _new_values = "{0}:${1}".format(":".join(diff_values), new_var)
             elif diff_values and new_var not in self._parent.app_configs["defaults"]: # otherwise
                 _new_values = ":".join(new_values)
@@ -174,7 +167,7 @@ class BtnEditDialog(QWidget):
 
         if new_var and _new_values:
             self._parent.update_env_file(new_var, _new_values)
-            self._parent.set_app_data("edit_btn_confirm", True)
+            self._parent.set_app_data("btn_edit_confirm", True)
 
         self.close()
         

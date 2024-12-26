@@ -309,5 +309,4 @@ pyrightconfig.json
 .local/*
 config.json
 config.json.bak
-manage-env-qt.pyproject
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,visualstudiocode

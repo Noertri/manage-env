@@ -40,17 +40,20 @@ class MainWidget(QWidget):
 
         self._load_env_vars()
 
-        # close button
-        self.ui.btn_close.clicked.connect(self.btn_close_slot)
-
         # new button
         self.ui.btn_new.clicked.connect(self.btn_new_slot)
 
         # edit button
         self.ui.btn_edit.clicked.connect(self.btn_edit_slot)
 
+        # delete button
+        self.ui.btn_delete.clicked.connect(self.btn_delete_slot)
+
         # ok button
         self.ui.btn_ok.clicked.connect(self.btn_ok_slot)
+
+        # close button
+        self.ui.btn_close.clicked.connect(self.btn_close_slot)
 
     @property
     def table(self) -> QTableWidget:
@@ -131,29 +134,15 @@ class MainWidget(QWidget):
         self.env_file_path = Path("{0}/.environment".format(Path.home()))
         self.app_data = dict()
 
-        # if not self.app_workdir.exists():
-        #     self.app_workdir.mkdir(parents=True)
-
         if not self.app_workdir.joinpath("config.json").exists():
             self._create_configs(self.app_workdir.joinpath("config.json"))
         else:
             self._load_configs(self.app_workdir.joinpath("config.json"))
-
-        bashrc_path = Path("{0}/.bashrc".format(Path.home()))
-        dotfile_path = Path("{0}/.profile".format(Path.home()))
         
-        script = 'if [ -f ~/.environment ]; then\n\tset -a\n\tsource ~/.environment\n\tset +a\nfi'
+        # script = 'if [ -f ~/.environment ]; then\n\tset -a\n\tsource ~/.environment\n\tset +a\nfi'
 
         if not self.env_file_path.exists():
             self.env_file_path.touch()
-
-            # with bashrc_path.open("a", encoding="utf-8") as f:
-            #     f.write("\n"+script.strip()+"\n")
-            #     f.close()
-
-            # with dotfile_path.open("a", encoding="utf-8") as f:
-            #     f.write("\n"+script.strip()+"\n")
-            #     f.close()
 
         env_os = dict(os.environ)
         env_os = dict(filter(self._filter_vars, env_os.items()))
@@ -229,7 +218,6 @@ class MainWidget(QWidget):
             event.ignore()
         else:
             event.accept()
-            print("Quit!!!")
 
     def btn_new_slot(self):
         if not self.btn_new_dialog and not self.btn_edit_dialog:
@@ -241,16 +229,26 @@ class MainWidget(QWidget):
             self.btn_edit_dialog = BtnEditDialog(parent=self)
             self.btn_edit_dialog.show()
 
+    def btn_delete_slot(self):
+        if not self.btn_edit_dialog and not self.btn_new_dialog and (selected_items := self.table.selectedItems()):
+            k = selected_items[0].text()
+            row = selected_items[0].row()
+            if k in self.app_data["env_file"]:
+                self.table.removeRow(row)
+                self.app_data["env_file"].pop(k)
+                self.app_data["btn_delete_confirm"] = True
+
     def btn_ok_slot(self):
-        print("Write data to file...")
-        if self.app_data.get("new_btn_confirm", False):
+        if self.app_data.get("btn_new_confirm", False):
             self._save_to_file()
 
-        if self.app_data.get("edit_btn_confirm", False):
+        if self.app_data.get("btn_edit_confirm", False):
+            self._save_to_file()
+
+        if self.app_data.get("btn_delete_confirm", False):
             self._save_to_file()
 
         self.ui.btn_ok.setDisabled(True)
-        print("Done!")
 
     def btn_close_slot(self):
         self.close()
