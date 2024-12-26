@@ -9,13 +9,13 @@ from PySide6.QtCore import Qt, QSize
 class BtnNewDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
-        from main import MainWidget
+        from main import MainWindow
 
         super().__init__(*args, **kwargs)
         self.setFixedSize(500, 200)
         self.ui = Ui_BtnNewDialog()
         self.ui.setupUi(self)
-        self._parent: MainWidget = parent
+        self._parent: MainWindow = parent
 
         self.ui.btn_cancel.clicked.connect(self.btn_cancel_slot)
         self.ui.btn_add.clicked.connect(self.btn_add_slot)
@@ -83,13 +83,13 @@ class ListWidgetItem(QListWidgetItem):
 class BtnEditDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
-        from main import MainWidget
+        from main import MainWindow
 
         super().__init__(*args, **kwargs)
         self.setFixedSize(650, 500)
         self.ui = Ui_BtnEditDialog()
         self.ui.setupUi(self)
-        self._parent: MainWidget = parent
+        self._parent: MainWindow= parent
         
         self._selected_values = []
         self._row = 0
