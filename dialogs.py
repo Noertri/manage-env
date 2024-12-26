@@ -1,5 +1,3 @@
-from typing import List
-
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
 from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
 from dialoguis.btn_edit_dialog_ui import Ui_BtnEditDialog
@@ -9,13 +7,11 @@ from PySide6.QtCore import Qt, QSize
 class BtnNewDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
-        from main import MainWindow
-
         super().__init__(*args, **kwargs)
         self.setFixedSize(500, 200)
         self.ui = Ui_BtnNewDialog()
         self.ui.setupUi(self)
-        self._parent: MainWindow = parent
+        self._parent = parent
 
         self.ui.btn_cancel.clicked.connect(self.btn_cancel_slot)
         self.ui.btn_add.clicked.connect(self.btn_add_slot)
@@ -83,17 +79,15 @@ class ListWidgetItem(QListWidgetItem):
 class BtnEditDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
-        from main import MainWindow
-
         super().__init__(*args, **kwargs)
         self.setFixedSize(650, 500)
         self.ui = Ui_BtnEditDialog()
         self.ui.setupUi(self)
-        self._parent: MainWindow= parent
+        self._parent = parent
         
         self._selected_values = []
         self._row = 0
-        self._selected_items: List[QTableWidgetItem] = self._parent.table.selectedItems()
+        self._selected_items = self._parent.table.selectedItems()
         
         self._load_selected_items()
 
@@ -144,7 +138,7 @@ class BtnEditDialog(QWidget):
         new_values = []
 
         for i in range(self.values_list.count()):
-            if t := self.values_list.item(i).text().strip():
+            if (t := self.values_list.item(i).text().strip()):
                 new_values.append(t)
 
         # update table
