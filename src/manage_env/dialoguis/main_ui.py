@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form.ui'
+## Form generated from reading UI file 'main_form.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.setWindowModality(Qt.NonModal)
+        MainWindow.setWindowModality(Qt.WindowModality.NonModal)
         MainWindow.resize(600, 500)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -124,7 +124,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setSpacing(20)
         self.verticalLayout.setContentsMargins(10, 10, 10, 10)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.verticalLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
         self.verticalLayout.setContentsMargins(20, 20, 20, 20)
         self.table_frame = QFrame(MainWindow)
         self.table_frame.setObjectName(u"table_frame")
@@ -133,7 +133,7 @@ class Ui_MainWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.table_frame.sizePolicy().hasHeightForWidth())
         self.table_frame.setSizePolicy(sizePolicy1)
-        self.table_frame.setFrameShape(QFrame.NoFrame)
+        self.table_frame.setFrameShape(QFrame.Shape.NoFrame)
         self.table_lo = QVBoxLayout(self.table_frame)
         self.table_lo.setSpacing(20)
         self.table_lo.setContentsMargins(10, 10, 10, 10)
@@ -151,14 +151,14 @@ class Ui_MainWindow(object):
         __qtablewidgetitem1.setFont(font);
         self.table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.table.setObjectName(u"table")
-        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table.setTabKeyNavigation(False)
         self.table.setProperty(u"showDropIndicator", False)
         self.table.setDragDropOverwriteMode(False)
-        self.table.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
-        self.table.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
+        self.table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table.setVerticalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
+        self.table.setHorizontalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
         self.table.horizontalHeader().setMinimumSectionSize(250)
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.verticalHeader().setVisible(False)
@@ -168,7 +168,7 @@ class Ui_MainWindow(object):
         self.btn_lo2 = QHBoxLayout()
         self.btn_lo2.setSpacing(10)
         self.btn_lo2.setObjectName(u"btn_lo2")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.btn_lo2.addItem(self.horizontalSpacer)
 
@@ -196,7 +196,7 @@ class Ui_MainWindow(object):
         self.btn_lo1 = QHBoxLayout()
         self.btn_lo1.setSpacing(10)
         self.btn_lo1.setObjectName(u"btn_lo1")
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.btn_lo1.addItem(self.horizontalSpacer_2)
 
