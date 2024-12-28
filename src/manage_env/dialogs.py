@@ -84,6 +84,8 @@ class BtnEditDialog(QWidget):
         self.ui = Ui_BtnEditDialog()
         self.ui.setupUi(self)
         self._parent = parent
+
+        self.confirm_count = 0
         
         self._selected_values = []
         self._row = 0
@@ -159,7 +161,7 @@ class BtnEditDialog(QWidget):
         if len(new_values) <= len(self._selected_values) and new_var not in self._parent.app_configs["defaults"]:
             _new_values = ":".join(new_values)
 
-        if new_var and _new_values:
+        if _new_values and self.confirm_count > 0:
             self._parent.update_env_file(new_var, _new_values)
             self._parent.set_app_data("btn_edit_confirm", True)
 
@@ -173,15 +175,18 @@ class BtnEditDialog(QWidget):
         self.values_list.addItem(new_item)
         self.values_list.setCurrentItem(new_item)
         self.values_list.editItem(self.values_list.currentItem())
+        self.confirm_count += 1
 
     def btn_edit_slot(self):
         current_item = self.values_list.currentItem()
         current_item.setFlags(current_item.flags()|Qt.ItemFlag.ItemIsEditable)
         self.values_list.editItem(current_item)
+        self.confirm_count += 1
     
     def btn_delete_slot(self):
         current_row = self.values_list.currentRow()
         self.values_list.takeItem(current_row)
+        self.confirm_count += 1
 
     def btn_browse_dir_slot(self):
         file_dialog = QFileDialog()
@@ -191,6 +196,8 @@ class BtnEditDialog(QWidget):
             new_values = ListWidgetItem()
             new_values.setText(dir_name.strip())
             self.values_list.addItem(new_values)
+
+        self.confirm_count += 1
         
     def btn_browse_file_slot(self):
         file_dialog = QFileDialog()
@@ -201,3 +208,5 @@ class BtnEditDialog(QWidget):
                 new_value = ListWidgetItem()
                 new_value.setText(fname)
                 self.values_list.addItem(new_value)
+
+        self.confirm_count += 1
