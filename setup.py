@@ -4,12 +4,12 @@ from pathlib import Path
 src_path = Path("./src/manage_env")
 
 build_options = {
-    "includes": ["dialoguis"],
+    "includes": [],
     "include_path": [str(src_path)],
-    "excludes": ["tkinter"],
-    "zip_include_packages": ["encodings", "PySide6", "shiboken6", "email", "urllib"],
-    "bin_path_excludes": [""],
-    "optimize": 1
+    "excludes": [],
+    "zip_include_packages": ["shiboken6", "tkinter", "encodings", "email", "urllib"],
+    "bin_path_excludes": [],
+    "optimize": 2
 }
 
 setup(
