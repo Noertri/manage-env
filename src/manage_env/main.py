@@ -11,8 +11,8 @@ from PySide6.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetIt
 #     pyside6-uic form.ui -o ui_form.py, or
 #     pyside2-uic form.ui -o ui_form.py
 
-from dialoguis.main_ui import Ui_MainWindow
-from dialogs import BtnNewDialog, BtnEditDialog
+from main_ui import Ui_MainWindow
+from dialogs import NewDialog, EditDialog
 
   
 class MainWindow(QWidget):
@@ -27,8 +27,8 @@ class MainWindow(QWidget):
         self.ui.setupUi(self)
         self.setFixedSize(600, 500)
 
-        self.btn_new_dialog: BtnNewDialog = None
-        self.btn_edit_dialog: BtnEditDialog = None
+        self.btn_new_dialog = None
+        self.btn_edit_dialog = None
 
         # customize table header
         table_hor_header = self.ui.table.horizontalHeader()
@@ -216,12 +216,12 @@ class MainWindow(QWidget):
 
     def btn_new_slot(self):
         if not self.btn_new_dialog and not self.btn_edit_dialog:
-            self.btn_new_dialog = BtnNewDialog(parent=self)
+            self.btn_new_dialog = NewDialog(parent=self)
             self.btn_new_dialog.show()
 
     def btn_edit_slot(self):
         if not self.btn_edit_dialog and not self.btn_new_dialog and self.table.selectedItems():
-            self.btn_edit_dialog = BtnEditDialog(parent=self)
+            self.btn_edit_dialog = EditDialog(parent=self)
             self.btn_edit_dialog.show()
 
     def btn_delete_slot(self):

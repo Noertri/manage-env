@@ -1,15 +1,15 @@
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
-from dialoguis.btn_new_dialog_ui import Ui_BtnNewDialog
-from dialoguis.btn_edit_dialog_ui import Ui_BtnEditDialog
+from new_dialog_ui import Ui_NewDialog
+from edit_dialog_ui import Ui_EditDialog
 from PySide6.QtCore import Qt, QSize
 
 
-class BtnNewDialog(QWidget):
+class NewDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setFixedSize(500, 200)
-        self.ui = Ui_BtnNewDialog()
+        self.ui = Ui_NewDialog()
         self.ui.setupUi(self)
         self._parent = parent
 
@@ -76,12 +76,12 @@ class ListWidgetItem(QListWidgetItem):
         self.setSizeHint(QSize(400, 25))
         
 
-class BtnEditDialog(QWidget):
+class EditDialog(QWidget):
 
     def __init__(self, parent, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setFixedSize(650, 500)
-        self.ui = Ui_BtnEditDialog()
+        self.ui = Ui_EditDialog()
         self.ui.setupUi(self)
         self._parent = parent
 

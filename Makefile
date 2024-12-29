@@ -1,17 +1,21 @@
-VPATH = ./src/manage_env/dialoguis:./src/manage_env/ui_files
+VPATH = ./src/manage_env
 
-target_path = ./src/manage_env/dialoguis
+target_path = ./src/manage_env
 
 vpath %.ui ./src/manage_env/ui_files/
 
+.PHONY: all build
 
-.PHONY: build
+all: main_ui edit_dialog_ui new_dialog_ui
 
 main_ui : main_form.ui
 	pyside6-uic $^ --rc-prefix -o $(target_path)/$@.py
 
-btn_edit_dialog_ui : btn_edit_dialog_form.ui
+edit_dialog_ui : edit_dialog_form.ui
 	pyside6-uic $^ --rc-prefix -o $(target_path)/$@.py
 
-btn_new_dialog_ui : btn_new_dialog_form.ui
+new_dialog_ui : new_dialog_form.ui
 	pyside6-uic $^ --rc-prefix -o $(target_path)/$@.py
+
+build: setup.py
+	python3 setup.py build

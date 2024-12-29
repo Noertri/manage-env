@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BtnEditDialog</class>
- <widget class="QWidget" name="BtnEditDialog">
+ <class>EditDialog</class>
+ <widget class="QWidget" name="EditDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -520,28 +520,28 @@
        <item row="1" column="1">
         <widget class="QListWidget" name="values_list">
          <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
+          <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
          </property>
          <property name="showDropIndicator" stdset="0">
           <bool>false</bool>
          </property>
          <property name="defaultDropAction">
-          <enum>Qt::IgnoreAction</enum>
+          <enum>Qt::DropAction::IgnoreAction</enum>
          </property>
          <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectRows</enum>
+          <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
          </property>
          <property name="verticalScrollMode">
-          <enum>QAbstractItemView::ScrollPerPixel</enum>
+          <enum>QAbstractItemView::ScrollMode::ScrollPerPixel</enum>
          </property>
          <property name="horizontalScrollMode">
-          <enum>QAbstractItemView::ScrollPerPixel</enum>
+          <enum>QAbstractItemView::ScrollMode::ScrollPerPixel</enum>
          </property>
          <property name="spacing">
           <number>1</number>
          </property>
          <property name="viewMode">
-          <enum>QListView::ListMode</enum>
+          <enum>QListView::ViewMode::ListMode</enum>
          </property>
          <property name="uniformItemSizes">
           <bool>true</bool>
@@ -553,7 +553,7 @@
           <bool>true</bool>
          </property>
          <property name="itemAlignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -588,10 +588,10 @@
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Minimum</enum>
+          <enum>QSizePolicy::Policy::Minimum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -624,7 +624,7 @@
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>

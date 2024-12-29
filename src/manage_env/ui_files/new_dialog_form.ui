@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BtnNewDialog</class>
- <widget class="QWidget" name="BtnNewDialog">
+ <class>NewDialog</class>
+ <widget class="QWidget" name="NewDialog">
   <property name="windowModality">
-   <enum>Qt::NonModal</enum>
+   <enum>Qt::WindowModality::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>550</width>
     <height>200</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>500</width>
+    <width>550</width>
     <height>200</height>
    </size>
   </property>
@@ -508,7 +508,7 @@
      <item row="0" column="1">
       <widget class="QLineEdit" name="new_var_entry">
        <property name="contextMenuPolicy">
-        <enum>Qt::DefaultContextMenu</enum>
+        <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
        </property>
       </widget>
      </item>
@@ -531,6 +531,12 @@
      </property>
      <item>
       <widget class="QPushButton" name="btn_browse_dir">
+       <property name="minimumSize">
+        <size>
+         <width>110</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text">
         <string>Browse folder</string>
        </property>
@@ -538,6 +544,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="btn_browse_file">
+       <property name="minimumSize">
+        <size>
+         <width>110</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text">
         <string>Browse file</string>
        </property>
@@ -546,7 +558,7 @@
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
