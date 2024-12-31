@@ -1,17 +1,14 @@
 from cx_Freeze import setup, Executable
 from pathlib import Path
+import json
 
 src_path = Path("./src/manage_env")
 
-build_options = {
-    "includes": [],
-    "include_path": [str(src_path)],
-    "excludes": [],
-    "zip_include_packages": ["shiboken6", "tkinter", "encodings", "email", "urllib"],
-    "bin_path_excludes": [],
-    "optimize": 2
-}
-
+if (opts_path := Path("build_options.json")) and opts_path.exists():
+    with opts_path.open("r", encoding="utf-8") as fobj:
+        build_options = json.load(fobj)
+        fobj.close()
+        
 setup(
     name="manage-env",
     version="0.0.3",
