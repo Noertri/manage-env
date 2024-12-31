@@ -534,7 +534,7 @@
        <widget class="QTableWidget" name="table">
         <property name="font">
          <font>
-          <pointsize>12</pointsize>
+          <pointsize>11</pointsize>
          </font>
         </property>
         <property name="editTriggers">

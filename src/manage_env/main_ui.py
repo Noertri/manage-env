@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './src/manage_env/ui_files/main_form.ui'
+# Form implementation generated from reading ui file 'src/manage_env/ui_files/main_form.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -193,7 +193,7 @@ class Ui_MainWindow(object):
         self.table_lo.setObjectName("table_lo")
         self.table = QtWidgets.QTableWidget(self.table_frame)
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         self.table.setFont(font)
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table.setTabKeyNavigation(False)

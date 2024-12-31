@@ -1,8 +1,8 @@
-VPATH = ./src/manage_env
+VPATH = src/manage_env
 
-target_path = ./src/manage_env
+target_path = src/manage_env
 
-vpath %.ui ./src/manage_env/ui_files/
+vpath %.ui src/manage_env/ui_files/
 
 .PHONY: all build clean
 

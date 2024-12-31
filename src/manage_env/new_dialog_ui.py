@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './src/manage_env/ui_files/new_dialog_form.ui'
+# Form implementation generated from reading ui file 'src/manage_env/ui_files/new_dialog_form.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -168,6 +168,9 @@ class Ui_NewDialog(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         NewDialog.setPalette(palette)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        NewDialog.setFont(font)
         self.verticalLayout = QtWidgets.QVBoxLayout(NewDialog)
         self.verticalLayout.setContentsMargins(20, 20, 20, 20)
         self.verticalLayout.setSpacing(40)
@@ -182,10 +185,13 @@ class Ui_NewDialog(object):
         self.label1.setObjectName("label1")
         self.gridLayout.addWidget(self.label1, 0, 0, 1, 1)
         self.new_var_entry = QtWidgets.QLineEdit(NewDialog)
-        self.new_var_entry.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
+        self.new_var_entry.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.new_var_entry.setAcceptDrops(False)
+        self.new_var_entry.setAutoFillBackground(False)
         self.new_var_entry.setObjectName("new_var_entry")
         self.gridLayout.addWidget(self.new_var_entry, 0, 1, 1, 1)
         self.new_values_entry = QtWidgets.QLineEdit(NewDialog)
+        self.new_values_entry.setAcceptDrops(False)
         self.new_values_entry.setToolTip("")
         self.new_values_entry.setToolTipDuration(3)
         self.new_values_entry.setObjectName("new_values_entry")

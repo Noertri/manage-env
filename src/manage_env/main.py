@@ -48,7 +48,7 @@ class MainWindow(QWidget):
         self.ui.btn_close.clicked.connect(self.btn_close_slot)
 
     @property
-    def table(self) -> QTableWidget:
+    def table(self):
         return self.ui.table
 
     def init_app(self):

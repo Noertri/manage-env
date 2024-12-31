@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './src/manage_env/ui_files/edit_dialog_form.ui'
+# Form implementation generated from reading ui file 'src/manage_env/ui_files/edit_dialog_form.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -162,6 +162,9 @@ class Ui_EditDialog(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         EditDialog.setPalette(palette)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        EditDialog.setFont(font)
         EditDialog.setAutoFillBackground(True)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(EditDialog)
         self.verticalLayout_2.setContentsMargins(20, 20, 20, 20)
@@ -185,6 +188,9 @@ class Ui_EditDialog(object):
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
         self.values_list = QtWidgets.QListWidget(EditDialog)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.values_list.setFont(font)
         self.values_list.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.values_list.setProperty("showDropIndicator", False)
         self.values_list.setDefaultDropAction(QtCore.Qt.IgnoreAction)
