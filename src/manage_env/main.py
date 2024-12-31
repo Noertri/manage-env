@@ -4,12 +4,7 @@ import re
 import sys
 import os
 from pathlib import Path
-from PySide6.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetItem, QTableWidget
-
-# Important:
-# You need to run the following command to generate the ui_form.py file
-#     pyside6-uic form.ui -o ui_form.py, or
-#     pyside2-uic form.ui -o ui_form.py
+from PyQt5.QtWidgets import QApplication, QWidget, QHeaderView, QTableWidgetItem, QTableWidget
 
 from main_ui import Ui_MainWindow
 from dialogs import NewDialog, EditDialog

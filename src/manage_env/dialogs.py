@@ -1,7 +1,7 @@
-from PySide6.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
+from PyQt5.QtWidgets import QWidget, QTableWidgetItem, QFileDialog, QMessageBox, QListWidgetItem
 from new_dialog_ui import Ui_NewDialog
 from edit_dialog_ui import Ui_EditDialog
-from PySide6.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt, QSize
 
 
 class NewDialog(QWidget):

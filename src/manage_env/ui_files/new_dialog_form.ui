@@ -3,7 +3,7 @@
  <class>NewDialog</class>
  <widget class="QWidget" name="NewDialog">
   <property name="windowModality">
-   <enum>Qt::WindowModality::NonModal</enum>
+   <enum>Qt::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -508,7 +508,7 @@
      <item row="0" column="1">
       <widget class="QLineEdit" name="new_var_entry">
        <property name="contextMenuPolicy">
-        <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+        <enum>Qt::NoContextMenu</enum>
        </property>
       </widget>
      </item>
@@ -558,7 +558,10 @@
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
