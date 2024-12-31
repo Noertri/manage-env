@@ -19,10 +19,11 @@ new_dialog_ui : new_dialog_form.ui
 
 build: setup.py
 	python3 setup.py build
+	if [ -d build ]; then mv -uv build/exe.linux* build/manage-env; fi
 
 clean:
-	if [ -d build ]; then \
-		cd build/exe.linux*/lib/; \
+	if [ -d build/manage-env/lib ]; then \
+		cd build/manage-env/lib/; \
 		rm -f _blake2*; \
 		rm -f _codecs*; \
 		rm -f _csv*; \
@@ -34,15 +35,39 @@ clean:
 		rm -f array*; \
 		rm -f unicodedata*; \
 		rm -f _decimal*; \
-		rm -f PySide6/*Network*; \
-		rm -f PySide6/Qt/lib/*Network*; \
-		rm -f PySide6/Qt/lib/*Qml*; \
-		rm -f PySide6/Qt/lib/*OpenGL*; \
-		rm -f PySide6/Qt/lib/*Quick*; \
-		rm -f PySide6/Qt/lib/*Egl*; \
-		rm -rf PySide6/Qt/translations; \
-		rm -rf PySide6/Qt/plugins/egldeviceintegrations; \
-		rm -rf PySide6/Qt/plugins/networkinformation; \
-		rm -rf PySide6/Qt/plugins/tls; \
-		rm -rf PySide6/Qt/plugins/imageformats; \
+		rm -f *sha*; \
+		rm -f *hashlib*; \
+		rm -f *math*; \
+		rm -f *random*; \
+		rm -f *binascii*; \
+		rm -f *select*; \
+		rm -f *multibytecodec*; \
+		rm -f *statistics*; \
+		rm -f *md5*; \
+		rm -f *heapq*; \
+		rm -f *struct*; \
+		rm -f *fcntl*; \
+		rm -f *bisect*; \
+		rm -f *grp*; \
+		rm -f *opcode*; \
+		rm -f *lzma*; \
+		rm -f *bz2*; \
+		rm -f _json*; \
+		rm -f *typing*; \
+		rm -f *context*; \
+		rm -rf email; \
+		rm -f PyQt5/*Network*; \
+		rm -f PyQt5/Qt5/lib/*Network*; \
+		rm -f PyQt5/Qt5/lib/*WebSocket*; \
+		rm -f PyQt5/Qt5/lib/*Qml*; \
+		rm -f PyQt5/Qt5/lib/*OpenGL*; \
+		rm -f PyQt5/Qt5/lib/*Quick*; \
+		rm -f PyQt5/Qt5/lib/*Egl*; \
+		rm -rf PyQt5/Qt5/translations; \
+		rm -f PyQt5/Qt5/plugins/imageformats/*pdf*; \
+		rm -f PyQt5/Qt5/plugins/imageformats/*gif*; \
+		rm -f PyQt5/Qt5/plugins/imageformats/*tga*; \
+		rm -f PyQt5/Qt5/plugins/imageformats/*tiff*; \
+		rm -f PyQt5/Qt5/plugins/imageformats/*bmp*; \
+		rm -f PyQt5/Qt5/plugins/imageformats/*webp*; \
 	fi

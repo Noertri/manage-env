@@ -1,5 +1,5 @@
 {
     "include_path": ["src/manage_env"],
-    "zip_include_packages": ["email", "urllib"],
+    "zip_include_packages": [],
     "optimize": 2
 }
