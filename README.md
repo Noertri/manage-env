@@ -26,6 +26,12 @@ Requirements:
 3. cx-freeze (latest)
 4. make (to automate the convertion of ui files to py files and build executable, use package provided by your distro)
 
+Create virtual environment, activate it, then change directory to extracted source code folder and run this command to install all requirements.
+
+```bash
+pip3 install -r requirements.txt
+```
+
 To convert .ui files to .py files, go to extracted source code folder then run:
 
 ```bash
