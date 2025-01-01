@@ -24,8 +24,6 @@ Or clone this repo,
 git clone git@github.com:Noertri/manage-env.git
 ```
 
-This program is built using python and PyQt5 (Qt5).
-
 Requirements:
 
 1. Python (>= 3.11.10)
