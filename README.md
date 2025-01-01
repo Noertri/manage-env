@@ -3,7 +3,7 @@
 Simple GUI program to manage environment variables for linux.
 
 ## Installation
-Download program from [here](), then extract the archive to your desired folder or extract it to ```$HOME/.local/bin``` or ```$HOME/bin``` depend on your distro, so you can invoke the program directly from terminal.
+Download program from [here](https://github.com/Noertri/manage-env/releases), then extract the archive to your desired folder or extract it to ```$HOME/.local/bin``` or ```$HOME/bin``` depend on your distro, so you can invoke the program directly from terminal.
 
 Append this code below to ```.bashrc``` and ```.profile``` file,
 
